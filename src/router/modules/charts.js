@@ -3,33 +3,41 @@
 import Layout from '@/layout'
 
 const chartsRouter = {
-  path: '/charts',
+  path: '/commodity',
   component: Layout,
   redirect: 'noRedirect',
-  name: 'Charts',
+  name: 'commodity',
   meta: {
     title: '商品',
     icon: 'chart'
   },
-  children: [
-    {
-      path: 'keyboard',
-      component: () => import('@/views/charts/keyboard'),
-      name: 'KeyboardChart',
-      meta: { title: 'Keyboard Chart', noCache: true }
-    },
-    {
-      path: 'line',
-      component: () => import('@/views/charts/line'),
-      name: 'LineChart',
-      meta: { title: 'Line Chart', noCache: true }
-    },
-    {
-      path: 'mix-chart',
-      component: () => import('@/views/charts/mix-chart'),
-      name: 'MixChart',
-      meta: { title: 'Mix Chart', noCache: true }
-    }
+  children: [{
+    path: 'commodityManagement',
+    component: () =>
+                import('@/pages/commodity/commodityManagement'),
+    name: 'commodityManagement',
+    meta: { title: '商品管理', noCache: true }
+  },
+  {
+    path: 'inventoryManagement',
+    component: () =>
+                import('@/pages/commodity/inventoryManagement'),
+    name: 'inventoryManagement',
+    meta: { title: '库存管理', noCache: true }
+  },
+  {
+    path: 'specificationManagement',
+    component: () =>
+                import('@/pages/commodity/specificationManagement'),
+    name: 'specificationManagement',
+    meta: { title: '规格值管理', noCache: true }
+  }, {
+    path: 'commodityGroup',
+    component: () =>
+                import('@/pages/commodity/commodityGroup'),
+    name: 'commodityGroup',
+    meta: { title: '商品分组', noCache: true }
+  }
   ]
 }
 
