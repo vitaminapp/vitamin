@@ -1,6 +1,6 @@
 <template>
   <div class="chart-container">
-    商品设置
+    商品设置sddsfds
   </div>
 </template>
 
