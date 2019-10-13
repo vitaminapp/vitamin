@@ -7,7 +7,7 @@
 <script>
 
 export default {
-  name: 'SetOrder'
+  name: 'SetOrdering'
 }
 </script>
 

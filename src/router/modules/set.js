@@ -19,9 +19,29 @@ const setRouter = {
     },
     {
       path: 'setOrder',
-      component: () => import('@/pages/set/setOrder/index'),
+      component: () => import('@/pages/set/setOrder/setOrdering/index'),
       name: 'setOrder',
-      meta: { title: '订单设置' }
+      meta: { title: '订单设置' },
+      children: [
+        {
+          path: 'setOrdering',
+          component: () => import('@/pages/set/setOrder/setOrdering/index'),
+          name: 'setOrdering',
+          meta: { title: '订单设置' }
+        },
+        {
+          path: 'setRefund',
+          component: () => import('@/pages/set/setOrder/setRefund/index'),
+          name: 'setRefund',
+          meta: { title: '退款设置' }
+        },
+        {
+          path: 'setTemplate',
+          component: () => import('@/pages/set/setOrder/setTemplate/index'),
+          name: 'setTemplate',
+          meta: { title: '运费模板设置' }
+        }
+      ]
     },
     {
       path: 'setCommodity',
