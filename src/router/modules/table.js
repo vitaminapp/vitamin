@@ -3,38 +3,70 @@
 import Layout from '@/layout'
 
 const tableRouter = {
-  path: '/table',
+  path: '/marketing',
   component: Layout,
-  redirect: '/table/complex-table',
-  name: 'Table',
+  redirect: '/marketing/coupon/type',
+  name: '营销',
   meta: {
-    title: '顾客',
-    icon: 'table'
+    title: '营销',
+    icon: 'example'
   },
   children: [
     {
-      path: 'dynamic-table',
-      component: () => import('@/views/table/dynamic-table/index'),
-      name: 'DynamicTable',
-      meta: { title: 'Dynamic Table' }
+      path: '/coupon',
+      redirect: '/marketing/coupon/type',
+      name: '优惠券',
+      meta: { title: '优惠券', icon: 'edit' },
+      children: [
+        {
+          path: 'type',
+          component: () => import('@/pages/marketing/coupon/type'),
+          name: '优惠卷类型',
+          meta: { title: '优惠卷类型', icon: 'edit' }
+        },
+        {
+          path: '/record',
+          component: () => import('@/pages/marketing/coupon/record'),
+          name: '优惠卷记录',
+          meta: { title: '优惠卷记录', icon: 'list' }
+        },
+        {
+          path: '/grant',
+          component: () => import('@/pages/marketing/coupon/grant'),
+          name: '优惠卷发放记录',
+          meta: { title: '优惠卷发放记录', icon: 'list' }
+        },
+        {
+          path: '/use',
+          component: () => import('@/pages/marketing/coupon/use'),
+          name: '优惠卷使用记录',
+          meta: { title: '优惠卷使用记录', icon: 'list' }
+        }
+      ]
     },
     {
-      path: 'drag-table',
-      component: () => import('@/views/table/drag-table'),
-      name: 'DragTable',
-      meta: { title: 'Drag Table' }
+      path: '/price',
+      component: () => import('@/pages/marketing/price/index'),
+      name: '一口价',
+      meta: { title: '一口价', icon: 'list' }
     },
     {
-      path: 'inline-edit-table',
-      component: () => import('@/views/table/inline-edit-table'),
-      name: 'InlineEditTable',
-      meta: { title: 'Inline Edit' }
+      path: '/activity',
+      component: () => import('@/pages/marketing/activity/index'),
+      name: '满减活动',
+      meta: { title: '满减活动', icon: 'list' }
     },
     {
-      path: 'complex-table',
-      component: () => import('@/views/table/complex-table'),
-      name: 'ComplexTable',
-      meta: { title: 'Complex Table' }
+      path: '/restriction',
+      component: () => import('@/pages/marketing/restriction/index'),
+      name: 'restriction',
+      meta: { title: '限购活动', icon: 'list' }
+    },
+    {
+      path: '/promotion',
+      component: () => import('@/pages/marketing/promotion/index'),
+      name: 'promotion',
+      meta: { title: '店内促销', icon: 'list' }
     }
   ]
 }
