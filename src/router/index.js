@@ -10,6 +10,7 @@ import Layout from '@/layout'
 import componentsRouter from './modules/components'
 import chartsRouter from './modules/charts'
 import tableRouter from './modules/table'
+import settingRouter from './modules/setting'
 import nestedRouter from './modules/nested'
 
 /**
@@ -119,7 +120,7 @@ export const asyncRoutes = [
         component: () => import('@/views/permission/page'),
         name: 'PagePermission',
         meta: {
-          title: 'Page Permission',
+          title: '店铺管理',
           roles: ['admin'] // or you can only set roles in sub nav
         }
       },
@@ -128,17 +129,8 @@ export const asyncRoutes = [
         component: () => import('@/views/permission/directive'),
         name: 'DirectivePermission',
         meta: {
-          title: 'Directive Permission'
+          title: '专柜导航管理'
           // if do not set roles, means: this page does not require permission
-        }
-      },
-      {
-        path: 'role',
-        component: () => import('@/views/permission/role'),
-        name: 'RolePermission',
-        meta: {
-          title: 'Role Permission',
-          roles: ['admin']
         }
       }
     ]
@@ -160,53 +152,59 @@ export const asyncRoutes = [
   /** when your routing map is too long, you can split it into small modules **/
   componentsRouter,
   chartsRouter,
-  nestedRouter,
-  tableRouter,
-
   {
-    path: '/example',
+    path: '/customer',
     component: Layout,
-    redirect: '/example/list',
-    name: '营销',
+    redirect: '/customer/index',
+    name: '顾客',
     meta: {
-      title: '营销',
+      title: '顾客',
       icon: 'example'
     },
     children: [
       {
+        path: 'index',
+        component: () => import('@/pages/customer/manage/index'),
+        name: '顾客',
+        meta: { title: '顾客管理', icon: 'icon', noCache: true }
+      },
+      {
         path: 'create',
-        component: () => import('@/views/example/create'),
+        component: () => import('@/pages/customer/manage/index'),
         name: 'CreateArticle',
         meta: { title: 'Create Article', icon: 'edit' }
+      }
+    ]
+  },
+  nestedRouter,
+  tableRouter,
+
+  {
+    path: '/team',
+    component: Layout,
+    redirect: '/team/staff',
+    name: '团队',
+    meta: {
+      title: '团队',
+      icon: 'excel'
+    },
+    children: [
+      {
+        path: 'staff',
+        component: () => import('@/pages/team/staff'),
+        name: '员工管理',
+        meta: { title: '员工管理' }
       },
       {
-        path: 'edit/:id(\\d+)',
-        component: () => import('@/views/example/edit'),
-        name: 'EditArticle',
-        meta: { title: 'Edit Article', noCache: true, activeMenu: '/example/list' },
-        hidden: true
-      },
-      {
-        path: 'list',
-        component: () => import('@/views/example/list'),
-        name: 'ArticleList',
-        meta: { title: 'Article List', icon: 'list' }
+        path: 'shopping',
+        component: () => import('@/pages/team/shopping'),
+        name: '导购管理',
+        meta: { title: '导购管理' }
       }
     ]
   },
 
-  {
-    path: '/tab',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/tab/index'),
-        name: '团队',
-        meta: { title: '团队', icon: 'tab' }
-      }
-    ]
-  },
+  settingRouter,
 
   {
     path: '/error',
@@ -242,43 +240,6 @@ export const asyncRoutes = [
         component: () => import('@/views/error-log/index'),
         name: 'ErrorLog',
         meta: { title: 'Error Log', icon: 'bug' }
-      }
-    ]
-  },
-
-  {
-    path: '/excel',
-    component: Layout,
-    redirect: '/excel/export-excel',
-    name: '设置',
-    meta: {
-      title: '设置',
-      icon: 'excel'
-    },
-    children: [
-      {
-        path: 'export-excel',
-        component: () => import('@/views/excel/export-excel'),
-        name: 'ExportExcel',
-        meta: { title: 'Export Excel' }
-      },
-      {
-        path: 'export-selected-excel',
-        component: () => import('@/views/excel/select-excel'),
-        name: 'SelectExcel',
-        meta: { title: 'Export Selected' }
-      },
-      {
-        path: 'export-merge-header',
-        component: () => import('@/views/excel/merge-header'),
-        name: 'MergeHeader',
-        meta: { title: 'Merge Header' }
-      },
-      {
-        path: 'upload-excel',
-        component: () => import('@/views/excel/upload-excel'),
-        name: 'UploadExcel',
-        meta: { title: 'Upload Excel' }
       }
     ]
   },

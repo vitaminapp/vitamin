@@ -3,38 +3,46 @@
 import Layout from '@/layout'
 
 const tableRouter = {
-  path: '/table',
+  path: '/marketing',
   component: Layout,
-  redirect: '/table/complex-table',
-  name: 'Table',
+  redirect: '/marketing/coupon',
+  name: '营销',
   meta: {
-    title: '顾客',
-    icon: 'table'
+    title: '营销',
+    icon: 'example'
   },
   children: [
     {
-      path: 'dynamic-table',
-      component: () => import('@/views/table/dynamic-table/index'),
-      name: 'DynamicTable',
-      meta: { title: 'Dynamic Table' }
+      path: '/coupon',
+      component: () => import('@/pages/marketing/coupon/index'),
+      name: '优惠券',
+      meta: { title: '优惠券', icon: 'edit' }
     },
     {
-      path: 'drag-table',
-      component: () => import('@/views/table/drag-table'),
-      name: 'DragTable',
-      meta: { title: 'Drag Table' }
+      path: '/price',
+      component: () => import('@/pages/marketing/price/index'),
+      name: '一口价',
+      meta: { title: '一口价', noCache: true, activeMenu: '/example/list' },
+      hidden: true
     },
     {
-      path: 'inline-edit-table',
-      component: () => import('@/views/table/inline-edit-table'),
-      name: 'InlineEditTable',
-      meta: { title: 'Inline Edit' }
+      path: 'list',
+      component: () => import('@/views/example/list'),
+      name: 'ArticleList',
+      meta: { title: '满减活动', icon: 'list' }
     },
     {
-      path: 'complex-table',
-      component: () => import('@/views/table/complex-table'),
-      name: 'ComplexTable',
-      meta: { title: 'Complex Table' }
+      path: '/edit',
+      component: () => import('@/views/example/edit'),
+      name: 'EditArticle',
+      meta: { title: '限购活动', noCache: true, activeMenu: '/example/list' },
+      hidden: true
+    },
+    {
+      path: 'list',
+      component: () => import('@/views/example/list'),
+      name: 'ArticleList',
+      meta: { title: '店内促销', icon: 'list' }
     }
   ]
 }
