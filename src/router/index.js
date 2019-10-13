@@ -10,6 +10,7 @@ import Layout from '@/layout'
 import componentsRouter from './modules/components'
 import chartsRouter from './modules/charts'
 import tableRouter from './modules/table'
+import settingRouter from './modules/setting'
 import nestedRouter from './modules/nested'
 
 /**
@@ -179,14 +180,26 @@ export const asyncRoutes = [
   tableRouter,
 
   {
-    path: '/tab',
+    path: '/team',
     component: Layout,
+    redirect: '/team/staff',
+    name: '团队',
+    meta: {
+      title: '团队',
+      icon: 'excel'
+    },
     children: [
       {
-        path: 'index',
-        component: () => import('@/views/tab/index'),
-        name: '团队',
-        meta: { title: '团队', icon: 'tab' }
+        path: 'staff',
+        component: () => import('@/pages/team/staff'),
+        name: '员工管理',
+        meta: { title: '员工管理' }
+      },
+      {
+        path: 'shopping',
+        component: () => import('@/pages/team/shopping'),
+        name: '导购管理',
+        meta: { title: '导购管理' }
       }
     ]
   },
@@ -226,6 +239,8 @@ export const asyncRoutes = [
       }
     ]
   },
+
+  settingRouter,
 
   {
     path: '/error',
