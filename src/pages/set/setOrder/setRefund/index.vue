@@ -1,6 +1,6 @@
 <template>
   <div class="chart-container">
-    退款设置
+    订单设置
   </div>
 </template>
 
