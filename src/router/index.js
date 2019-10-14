@@ -7,11 +7,11 @@ Vue.use(Router)
 import Layout from '@/layout'
 
 /* Router Modules */
-import componentsRouter from './modules/components'
-import chartsRouter from './modules/charts'
-import tableRouter from './modules/table'
+import orderRouter from './modules/order'
+import commodityRouter from './modules/commodity'
+import marketRouter from './modules/market'
+import settingRouter from './modules/set'
 import nestedRouter from './modules/nested'
-import memder from './modules/memder'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -78,7 +78,7 @@ export const constantRoutes = [
     children: [
       {
         path: 'homePage',
-        component: () => import('@/views/dashboard/index'),
+        component: () => import('@/pages/homepage/index'),
         name: '首页',
         meta: { title: '首页', icon: 'link', affix: true }
       }
@@ -104,9 +104,9 @@ export const constantRoutes = [
  */
 export const asyncRoutes = [
   {
-    path: '/permission',
+    path: '/shop',
     component: Layout,
-    redirect: '/permission/page',
+    redirect: '/shop/page',
     alwaysShow: true, // will always show the root menu
     name: 'Permission',
     meta: {
@@ -116,99 +116,99 @@ export const asyncRoutes = [
     },
     children: [
       {
-        path: 'page',
-        component: () => import('@/views/permission/page'),
-        name: 'PagePermission',
+        path: 'manageShops',
+        component: () => import('@/pages/shop/manageShops'),
+        name: 'manageShops',
         meta: {
-          title: 'Page Permission',
+          title: '店铺管理',
           roles: ['admin'] // or you can only set roles in sub nav
         }
       },
       {
-        path: 'directive',
-        component: () => import('@/views/permission/directive'),
-        name: 'DirectivePermission',
+        path: 'navigation',
+        component: () => import('@/pages/shop/navigation'),
+        name: 'navigation',
         meta: {
-          title: 'Directive Permission'
+          title: '专柜导航管理'
           // if do not set roles, means: this page does not require permission
-        }
-      },
-      {
-        path: 'role',
-        component: () => import('@/views/permission/role'),
-        name: 'RolePermission',
-        meta: {
-          title: 'Role Permission',
-          roles: ['admin']
         }
       }
     ]
   },
 
   {
-    path: '/icon',
+    path: '/page',
     component: Layout,
+    meta: { title: '页面', icon: 'icon', noCache: true },
     children: [
       {
         path: 'index',
-        component: () => import('@/views/icons/index'),
+        component: () => import('@/pages/page/management/index'),
+        name: '页面管理',
+        meta: { title: '页面管理', icon: 'icon', noCache: true }
+      },
+      {
+        path: 'index',
+        component: () => import('@/pages/page/management/index'),
         name: '页面',
         meta: { title: '页面', icon: 'icon', noCache: true }
       }
     ]
   },
-
-  /** when your routing map is too long, you can split it into small modules **/
-  componentsRouter,
-  chartsRouter,
-  nestedRouter,
-  tableRouter,
-  memder,
-
+  orderRouter,
+  commodityRouter,
   {
-    path: '/example',
+    path: '/customer',
     component: Layout,
-    redirect: '/example/list',
-    name: '营销',
+    redirect: '/customer/index',
+    name: '顾客',
     meta: {
-      title: '营销',
+      title: '顾客',
       icon: 'example'
     },
     children: [
       {
+        path: 'index',
+        component: () => import('@/pages/customer/manage/index'),
+        name: '顾客',
+        meta: { title: '顾客管理', icon: 'icon', noCache: true }
+      },
+      {
         path: 'create',
-        component: () => import('@/views/example/create'),
+        component: () => import('@/pages/customer/manage/index'),
         name: 'CreateArticle',
         meta: { title: 'Create Article', icon: 'edit' }
-      },
-      {
-        path: 'edit/:id(\\d+)',
-        component: () => import('@/views/example/edit'),
-        name: 'EditArticle',
-        meta: { title: 'Edit Article', noCache: true, activeMenu: '/example/list' },
-        hidden: true
-      },
-      {
-        path: 'list',
-        component: () => import('@/views/example/list'),
-        name: 'ArticleList',
-        meta: { title: 'Article List', icon: 'list' }
       }
     ]
   },
+  nestedRouter,
+  marketRouter,
 
   {
-    path: '/tab',
+    path: '/team',
     component: Layout,
+    redirect: '/team/staff',
+    name: '团队',
+    meta: {
+      title: '团队',
+      icon: 'excel'
+    },
     children: [
       {
-        path: 'index',
-        component: () => import('@/views/tab/index'),
-        name: '团队',
-        meta: { title: '团队', icon: 'tab' }
+        path: 'staff',
+        component: () => import('@/pages/team/staff'),
+        name: '员工管理',
+        meta: { title: '员工管理' }
+      },
+      {
+        path: 'shopping',
+        component: () => import('@/pages/team/shopping'),
+        name: '导购管理',
+        meta: { title: '导购管理' }
       }
     ]
   },
+  settingRouter,
 
   {
     path: '/error',
@@ -244,43 +244,6 @@ export const asyncRoutes = [
         component: () => import('@/views/error-log/index'),
         name: 'ErrorLog',
         meta: { title: 'Error Log', icon: 'bug' }
-      }
-    ]
-  },
-
-  {
-    path: '/excel',
-    component: Layout,
-    redirect: '/excel/export-excel',
-    name: '设置',
-    meta: {
-      title: '设置',
-      icon: 'excel'
-    },
-    children: [
-      {
-        path: 'export-excel',
-        component: () => import('@/views/excel/export-excel'),
-        name: 'ExportExcel',
-        meta: { title: 'Export Excel' }
-      },
-      {
-        path: 'export-selected-excel',
-        component: () => import('@/views/excel/select-excel'),
-        name: 'SelectExcel',
-        meta: { title: 'Export Selected' }
-      },
-      {
-        path: 'export-merge-header',
-        component: () => import('@/views/excel/merge-header'),
-        name: 'MergeHeader',
-        meta: { title: 'Merge Header' }
-      },
-      {
-        path: 'upload-excel',
-        component: () => import('@/views/excel/upload-excel'),
-        name: 'UploadExcel',
-        meta: { title: 'Upload Excel' }
       }
     ]
   },

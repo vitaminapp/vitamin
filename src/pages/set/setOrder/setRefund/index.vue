@@ -1,0 +1,15 @@
+<template>
+  <div class="chart-container">
+    退款设置
+  </div>
+</template>
+
+<script>
+
+export default {
+  name: 'SetRefund'
+}
+</script>
+
+<style scoped>
+</style>
