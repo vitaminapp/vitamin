@@ -7,17 +7,12 @@ Vue.use(Router)
 import Layout from '@/layout'
 
 /* Router Modules */
-import componentsRouter from './modules/components'
-import chartsRouter from './modules/charts'
-import tableRouter from './modules/table'
-import settingRouter from './modules/setting'
+import orderRouter from './modules/order'
+import commodityRouter from './modules/commodity'
+import marketRouter from './modules/market'
+import settingRouter from './modules/set'
 import nestedRouter from './modules/nested'
-<<<<<<< HEAD
-import set from './modules/set'
-=======
-import memder from './modules/memder'
 
->>>>>>> 175f5651b06d6ba4f99847cfc0fd59af09781f18
 /**
  * Note: sub-menu only appear when route children.length >= 1
  * Detail see: https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
@@ -83,7 +78,7 @@ export const constantRoutes = [
     children: [
       {
         path: 'homePage',
-        component: () => import('@/views/dashboard/index'),
+        component: () => import('@/pages/homepage/index'),
         name: '首页',
         meta: { title: '首页', icon: 'link', affix: true }
       }
@@ -109,9 +104,9 @@ export const constantRoutes = [
  */
 export const asyncRoutes = [
   {
-    path: '/permission',
+    path: '/shop',
     component: Layout,
-    redirect: '/permission/page',
+    redirect: '/shop/page',
     alwaysShow: true, // will always show the root menu
     name: 'Permission',
     meta: {
@@ -121,18 +116,18 @@ export const asyncRoutes = [
     },
     children: [
       {
-        path: 'page',
-        component: () => import('@/views/permission/page'),
-        name: 'PagePermission',
+        path: 'manageShops',
+        component: () => import('@/pages/shop/manageShops'),
+        name: 'manageShops',
         meta: {
           title: '店铺管理',
           roles: ['admin'] // or you can only set roles in sub nav
         }
       },
       {
-        path: 'directive',
-        component: () => import('@/views/permission/directive'),
-        name: 'DirectivePermission',
+        path: 'navigation',
+        component: () => import('@/pages/shop/navigation'),
+        name: 'navigation',
         meta: {
           title: '专柜导航管理'
           // if do not set roles, means: this page does not require permission
@@ -142,21 +137,26 @@ export const asyncRoutes = [
   },
 
   {
-    path: '/icon',
+    path: '/page',
     component: Layout,
+    meta: { title: '页面', icon: 'icon', noCache: true },
     children: [
       {
         path: 'index',
-        component: () => import('@/views/icons/index'),
+        component: () => import('@/pages/page/management/index'),
+        name: '页面管理',
+        meta: { title: '页面管理', icon: 'icon', noCache: true }
+      },
+      {
+        path: 'index',
+        component: () => import('@/pages/page/management/index'),
         name: '页面',
         meta: { title: '页面', icon: 'icon', noCache: true }
       }
     ]
   },
-
-  /** when your routing map is too long, you can split it into small modules **/
-  componentsRouter,
-  chartsRouter,
+  orderRouter,
+  commodityRouter,
   {
     path: '/customer',
     component: Layout,
@@ -182,7 +182,7 @@ export const asyncRoutes = [
     ]
   },
   nestedRouter,
-  tableRouter,
+  marketRouter,
 
   {
     path: '/team',
@@ -208,43 +208,6 @@ export const asyncRoutes = [
       }
     ]
   },
-  {
-    path: '/excel',
-    component: Layout,
-    redirect: '/excel/export-excel',
-    name: '设置',
-    meta: {
-      title: '设置',
-      icon: 'excel'
-    },
-    children: [
-      {
-        path: 'export-excel',
-        component: () => import('@/views/excel/export-excel'),
-        name: 'ExportExcel',
-        meta: { title: 'Export Excel' }
-      },
-      {
-        path: 'export-selected-excel',
-        component: () => import('@/views/excel/select-excel'),
-        name: 'SelectExcel',
-        meta: { title: 'Export Selected' }
-      },
-      {
-        path: 'export-merge-header',
-        component: () => import('@/views/excel/merge-header'),
-        name: 'MergeHeader',
-        meta: { title: 'Merge Header' }
-      },
-      {
-        path: 'upload-excel',
-        component: () => import('@/views/excel/upload-excel'),
-        name: 'UploadExcel',
-        meta: { title: 'Upload Excel' }
-      }
-    ]
-  },
-
   settingRouter,
 
   {

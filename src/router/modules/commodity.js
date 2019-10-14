@@ -2,7 +2,7 @@
 
 import Layout from '@/layout'
 
-const chartsRouter = {
+const commodityRouter = {
   path: '/commodity',
   component: Layout,
   redirect: 'noRedirect',
@@ -13,32 +13,28 @@ const chartsRouter = {
   },
   children: [{
     path: 'commodityManagement',
-    component: () =>
-                import('@/pages/commodity/commodityManagement'),
+    component: () => import('@/pages/commodity/commodityManagement'),
     name: 'commodityManagement',
     meta: { title: '商品管理', noCache: true }
   },
   {
     path: 'inventoryManagement',
-    component: () =>
-                import('@/pages/commodity/inventoryManagement'),
+    component: () => import('@/pages/commodity/inventoryManagement'),
     name: 'inventoryManagement',
     meta: { title: '库存管理', noCache: true }
   },
   {
     path: 'specificationManagement',
-    component: () =>
-                import('@/pages/commodity/specificationManagement'),
+    component: () => import('@/pages/commodity/specificationManagement'),
     name: 'specificationManagement',
     meta: { title: '规格值管理', noCache: true }
   }, {
     path: 'commodityGroup',
-    component: () =>
-                import('@/pages/commodity/commodityGroup'),
+    component: () => import('@/pages/commodity/commodityGroup'),
     name: 'commodityGroup',
     meta: { title: '商品分组', noCache: true }
   }
   ]
 }
 
-export default chartsRouter
+export default commodityRouter

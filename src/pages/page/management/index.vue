@@ -1,15 +1,13 @@
 <template>
-  <div class="chart-container">
-    绑定会员卡设置
+  <div>
+    页面管理
   </div>
 </template>
-
 <script>
-
 export default {
   name: 'Binding'
 }
 </script>
+<style lang="scss">
 
-<style scoped>
 </style>

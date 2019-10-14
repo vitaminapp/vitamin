@@ -13,19 +13,19 @@ const nestedRouter = {
   },
   children: [
     {
-      path: '/card',
+      path: 'card',
       component: () => import('@/pages/member/card/index'), // Parent router-view
       name: 'card',
       meta: { title: '会员卡' }
     },
     {
-      path: '/binding',
+      path: 'binding',
       name: 'binding',
       component: () => import('@/pages/member/binding/index'),
       meta: { title: '绑定会员卡设置' }
     },
     {
-      path: '/selfExtension',
+      path: 'selfExtension',
       name: 'selfExtension',
       component: () => import('@/pages/member/selfExtension/index'),
       meta: { title: '自拓二维码管理' }

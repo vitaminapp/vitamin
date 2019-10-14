@@ -1,7 +1,7 @@
 
 import Layout from '@/layout'
 
-const setRouter = {
+const settingRouter = {
   path: '/set',
   component: Layout,
   redirect: '/set/setUpShop',
@@ -19,7 +19,7 @@ const setRouter = {
     },
     {
       path: 'setOrder',
-      component: () => import('@/pages/set/setOrder/setOrdering/index'),
+      component: () => import('@/pages/set/setOrder/index'),
       name: 'setOrder',
       meta: { title: '订单设置' },
       children: [
@@ -76,4 +76,4 @@ const setRouter = {
 
   ]
 }
-export default setRouter
+export default settingRouter

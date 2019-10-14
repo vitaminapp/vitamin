@@ -1,6 +1,6 @@
 <template>
   <div class="chart-container">
-    优惠卷
+    <router-view />
   </div>
 </template>
 
