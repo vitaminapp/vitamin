@@ -1,23 +1,31 @@
 import { fetchList } from '@/api/marketing'
 const state = {
-  cardTypelist: []
+    cardTypelist: []
 }
 const mutations = {
-  setfetchList(state, payload) {
-    state.cardTypelist = payload
-    console.log(state.cardTypelist, '2222')
-  }
+    setfetchList(state, payload) {
+        if (payload) {
+            state.cardTypelist = payload
+        } else {
+            state.cardTypelist = []
+        }
+        // state.tempList = payload.splice(0, 10)
+        console.log(state.cardTypelist, '333')
+    }
 }
 const actions = {
-  async FetchList({ commit }, item) {
-    const data = await fetchList(item)
-    commit('setfetchList', data.data.list)
-  }
+    async FetchList({ commit }, item) {
+        await fetchList(item).then((res) => {
+            const data = res.data.list
+
+            commit('setfetchList', data)
+        })
+    }
 }
 
 export default {
-  namespaced: true,
-  state,
-  mutations,
-  actions
+    namespaced: true,
+    state,
+    mutations,
+    actions
 }

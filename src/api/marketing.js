@@ -9,10 +9,10 @@ export function fetchList(query) {
   })
 }
 
-// export function fetchArticle(id) {
-//   return request({
-//     url: '/article/detail',
-//     method: 'get',
-//     params: { id }
-//   })
-// }
+export function campaign(id) {
+  return request({
+    url: '/campaign/get-part-power',
+    method: 'get',
+    params: { id }
+  })
+}
