@@ -4,11 +4,12 @@ import Layout from '@/layout'
 const settingRouter = {
   path: '/set',
   component: Layout,
-  redirect: '/set/setUpShop',
+  redirect: '/set/index',
   name: 'set',
   meta: {
     title: '设置',
-    icon: 'table'
+    icon: 'table',
+    keepAlive: true
   },
   children: [
     {
@@ -47,7 +48,7 @@ const settingRouter = {
       path: 'setCommodity',
       component: () => import('@/pages/set/setCommodity/index'),
       name: 'setCommodity',
-      meta: { title: '商品设置' }
+      meta: { title: '商品设置',keepAlive: true }
     },
     {
       path: 'setLogin',
