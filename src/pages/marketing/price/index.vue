@@ -15,16 +15,16 @@
       <div class="padding-24 margin-24-top bg-white overflow">
         <div class="btn-add" @click="btnAdd">+</div>
         <div class="ant-table-wrapper index-table margin-24-top margin-24-btm">
-          <el-table :data="tableData" style="width: 100%;background: #595959;">
-            <el-table-column prop="name" label="活动名称" />
-            <el-table-column prop="fanwei" label="活动范围" />
-            <el-table-column prop="start-date" label="开始时间" />
-            <el-table-column prop="last-date" label="结束时间" />
-            <el-table-column prop="address" label="参加店铺/数" />
-            <el-table-column prop="num" label="商品数" />
-            <el-table-column prop="type" label="活动状态" />
-            <el-table-column prop="time" label="创建时间" />
-            <el-table-column prop="author" label="创建者" />
+          <el-table :data="cardTypelist" style="width: 100%;background: #595959;">
+            <el-table-column prop="active_name" label="活动名称" />
+            <el-table-column prop="active_range_str" label="活动范围" />
+            <el-table-column prop="created_at_strstart-date" label="开始时间" />
+            <el-table-column prop="end_time_str" label="结束时间" />
+            <el-table-column prop="join_store_nums" label="参加店铺/数" />
+            <el-table-column prop="join_prod_nums" label="商品数" />
+            <el-table-column prop="active_status_str" label="活动状态" />
+            <el-table-column prop="created_at_str" label="创建时间" />
+            <el-table-column prop="created_by_str" label="创建者" />
             <el-table-column label="操作" width="100">
               <template slot-scope="scope">
                 <el-button type="text" size="small" @click="handleClick(scope.row)">查看</el-button>
@@ -34,10 +34,18 @@
           </el-table>
           <div class="block">
             <span>第1-3条, 共 3 条</span>
-            <el-pagination background layout="prev, pager, next" :total="10" />
+            <el-pagination
+              :current-page.sync="cardTypelist"
+              :page-size="10"
+              layout="total, prev, pager, next"
+              :total="cardTypelist.length"
+              @size-change="handleSizeChange"
+              @current-change="handleCurrentChange"
+            />
           </div>
         </div>
       </div>
+
     </div>
 
     <div v-else class="content-action">
@@ -145,11 +153,13 @@
     <div v-if="!flag" class="bottom-footbar">
       <el-button size="small">添加商品</el-button>
       <el-button size="small" @click="qx">取消</el-button>
+
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex'
 export default {
   components: {},
   props: {},
@@ -159,6 +169,7 @@ export default {
         {
           date: '2016-05-02',
           name: '王小虎',
+          fanwei: '王小虎',
           address: '1518 弄'
         },
         {
@@ -178,6 +189,7 @@ export default {
         }
       ],
       activeName: 'second',
+      currentPage1: 10,
       flag: true,
       radio1: '1',
       radio2: '1',
@@ -188,12 +200,22 @@ export default {
       }
     }
   },
-  computed: {},
-  created() {},
-  mounted() {},
+  mounted() {
+    this.FetchList({ page: 1, pageSize: 10, tag_status: 3, type: 2 })
+  },
+  computed: {
+    ...mapState('marketing', ['cardTypelist'])
+  },
   methods: {
+    ...mapActions('marketing', ['FetchList']),
     handleClick(tab, event) {
       console.log(tab, event)
+    },
+    handleSizeChange(val) {
+      console.log(`每页 ${val} 条`)
+    },
+    handleCurrentChange(val) {
+      console.log(`当前页: ${val}`)
     },
     btnAdd() {
       this.flag = false
@@ -215,6 +237,7 @@ export default {
       this.$refs[formName].resetFields()
     }
   }
+
 }
 </script>
 
@@ -312,7 +335,7 @@ export default {
         span {
           height: 40px;
           line-height: 40px;
-          margin-left: 70%;
+          margin-left: 50%;
         }
         .el-pagination {
           margin: 5px;
@@ -393,10 +416,10 @@ export default {
       }
     }
   }
-  .bottom-footbar{
+  .bottom-footbar {
     width: 100%;
     height: 100%;
-    button{
+    button {
       float: right;
       margin: 10px;
     }
