@@ -1,6 +1,6 @@
 <template>
   <div class="chart-container">
-    订单设置
+    运费模版设置设置
   </div>
 </template>
 
