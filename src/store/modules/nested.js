@@ -1,18 +1,32 @@
-import { getCardType } from '@/api/nested'
+import { getCardType, getRegister, getShopList } from '@/api/nested'
 const state = {
-  cardType: []
+  cardType: [],
+  registerMessage: [],
+  shopList: []
 }
 const mutations = {
   setCardType(state, payload) {
     state.cardType = payload
-    console.log(payload)
+  },
+  setRegisterMessage(state, payload) {
+    state.registerMessage = payload
+  },
+  setShopList(state, payload) {
+    state.shopList = payload
   }
 }
 const actions = {
   async getCardType({ commit }) {
     const data = await getCardType()
-    console.log(data.data, 'this is data')
     commit('setCardType', data.data.list)
+  },
+  async getRegister({ commit }) {
+    const data = await getRegister()
+    commit('setRegisterMessage', data.data)
+  },
+  async getShopList({ commit }) {
+    const data = await getShopList()
+    commit('setShopList', data.data)
   }
 }
 
