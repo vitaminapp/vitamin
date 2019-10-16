@@ -1,13 +1,15 @@
 <template>
   <div class="drawer">
-    <div :class="maskClass" @click="closeByMask" />
-    <div :class="mainClass" :style="mainStyle" class="main">
-      <div class="drawer-head">
-        <span>{{ title }}</span>
-        <span v-show="closable" class="close-btn" @click="closeByButton">X</span>
-      </div>
-      <div class="drawer-body">
-        <slot />
+    <div class="mask_drawer" :style="mainStyle">
+      <div :class="maskClass" @click="closeByMask" />
+      <div :class="mainClass" :style="mainStyle" class="main">
+        <div class="drawer-head">
+          <span>{{ title }}</span>
+          <span v-show="closable" class="close-btn" @click="closeByButton">X</span>
+        </div>
+        <div class="drawer-body">
+          <slot />
+        </div>
       </div>
     </div>
   </div>
@@ -60,16 +62,16 @@ export default {
   computed: {
     maskClass: function() {
       return {
-        'mask-show': (this.mask && this.display),
+        'mask-show': this.mask && this.display,
         'mask-hide': !(this.mask && this.display),
-        'inner': this.inner
+        inner: this.inner
       }
     },
     mainClass: function() {
       return {
         'main-show': this.display,
         'main-hide': !this.display,
-        'inner': this.inner
+        inner: this.inner
       }
     },
     mainStyle: function() {
@@ -100,62 +102,55 @@ export default {
 <style lang="scss" scoped>
 .drawer {
   /* 遮罩 */
-  .mask-show {
+  .mask_drawer {
     position: fixed;
     top: 0;
-    left: 0;
+    right: 0;
     width: 100%;
     height: 100%;
     z-index: 10;
-    background-color: rgba(0,0,0,.5);
-    opacity: 1;
-    display: block;
-  }
-  .mask-hide {
-    opacity: 0;
-    display: none;
-  }
-
-  /* 滑块 */
-  .main {
-    position: fixed;
-    z-index: 10;
-    top: 0;
-    height: 100%;
-    background: #fff;
-    transition: all 0.5s;
-  }
-  .main-show {
-      display: block;
-  }
-  .main-hide {
-     display: none;
-  }
-
-  /* 某个元素内部显示 */
-  .inner {
-    position: absolute;
-  }
-
-  /* 其他样式 */
-  .drawer-head {
-    display: flex;
-    justify-content: space-between;
-    height: 45px;
-    line-height: 45px;
-    padding: 0 15px;
-    font-size: 16px;
-    border-bottom: 1px solid #eee;
-    .close-btn {
-      display: inline-block;
-      cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* 滑块 */
+    .main {
+      position: fixed;
+      z-index: 10;
+      top: 0;
       height: 100%;
-      padding-left: 20px;
+      background: #fff;
+      transition: all 0.5s;
     }
-  }
-  .drawer-body {
-    font-size: 14px;
-    padding: 15px;
+    .main-show {
+      display: block;
+    }
+    .main-hide {
+      display: none;
+    }
+
+    /* 某个元素内部显示 */
+    .inner {
+      position: absolute;
+    }
+
+    /* 其他样式 */
+    .drawer-head {
+      display: flex;
+      justify-content: space-between;
+      height: 45px;
+      line-height: 45px;
+      padding: 0 15px;
+      font-size: 16px;
+      border-bottom: 1px solid #eee;
+      .close-btn {
+        display: inline-block;
+        cursor: pointer;
+        height: 100%;
+        padding-left: 20px;
+      }
+    }
+    .drawer-body {
+      font-size: 14px;
+      padding: 15px;
+    }
   }
 }
 </style>
