@@ -5,7 +5,7 @@
   box-sizing: border-box;
 }
 
-.card_warper .right .showbox .addbtn {
+.card_warper .content .right .showbox .addbtn {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,20 +14,32 @@
 .card_warper {
   width: 100%;
   height: 100%;
+  overflow: auto;
   display: flex;
-  padding: 24px 24px;
+  flex-direction: column;
+}
+
+.card_warper .navbar {
+  width: 100%;
+}
+
+.card_warper .content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  padding: 0px 24px;
   font-size: 14px;
 }
 
-.card_warper .left {
+.card_warper .content .left {
   padding: 24px 0;
-  width: 160px;
+  width: 16%;
   height: 100%;
   display: flex;
   flex-direction: column;
 }
 
-.card_warper .left span {
+.card_warper .content .left span {
   width: 100%;
   height: 40px;
   padding: 0 16px 0 24px;
@@ -35,15 +47,16 @@
   align-items: center;
 }
 
-.card_warper .right {
+.card_warper .content .right {
+  width: 84%;
+  height: 100%;
   padding: 24px 24px;
-  flex: 1;
   border-left: 1px solid #e8e8e8;
   display: flex;
   flex-direction: column;
 }
 
-.card_warper .right .tit {
+.card_warper .content .right .tit {
   width: 100%;
   height: 72px;
   padding: 24px 0;
@@ -51,13 +64,13 @@
   align-items: center;
 }
 
-.card_warper .right .showbox {
+.card_warper .content .right .showbox {
   flex: 1;
   display: flex;
   flex-direction: column;
 }
 
-.card_warper .right .showbox .addbtn {
+.card_warper .content .right .showbox .addbtn {
   display: flex;
   width: 34px;
   height: 34px;
@@ -70,6 +83,29 @@
   margin-bottom: 48px;
 }
 
-.card_warper .right .showbox .el-table__row {
+.card_warper .content .right .showbox .el-table__row {
   height: 116px;
+}
+
+.card_warper .content .right .showbox .table {
+  margin-top: 24px;
+}
+
+.card_warper .content .right .showbox .table .el-table__row {
+  height: 53px;
+}
+
+.card_warper .content .right .showbox li {
+  width: 100%;
+  height: 30px;
+  display: flex;
+}
+
+.card_warper .content .right .showbox li span {
+  margin-right: 30px;
+}
+
+.card_warper .content .right .showbox .alemd {
+  margin-top: 24px;
+  color: #3ec6b6;
 }

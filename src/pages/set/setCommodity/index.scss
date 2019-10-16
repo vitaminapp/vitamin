@@ -1,0 +1,38 @@
+.main-container {
+    width: 100%;
+    height: 100%;
+}
+.app-main{
+    width: 100%;
+    height: 100%;
+}
+.chart-container{
+    width: 100%;
+    height: 100%;
+    margin-top: 2px;
+    background: #FCFCFC;
+    
+}
+
+.content-action{
+    height: 100%;
+    width: 95%;
+    margin:0 auto;
+    padding:24px;
+    background: #fff;
+}
+.form-line {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-weight: normal;
+}
+.btn{
+    float: right;
+    position: fixed;
+    bottom: 20px;
+    right: 50px;
+    .el-button{
+        background:  #3EC6B6;
+        border: 1px solid #3EC6B6;
+    } 
+}

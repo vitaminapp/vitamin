@@ -1,6 +1,8 @@
 import From from '@/component/from'
 import Header from '@/component/header'
-const components = [From, Header]
+import Table from '@/component/table'
+
+const components = [From, Header, Table]
 
 const install = (Vue) => {
   components.forEach(component => {
