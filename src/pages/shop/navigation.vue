@@ -5,7 +5,7 @@
   </div>
 </template>
 <script>
-import { storeList } from "@/api/shop";
+import { floorList,categoryList,storeList } from "@/api/shop";
 export default {
   data() {
     return {
@@ -32,9 +32,26 @@ export default {
     }
   },
   mounted() {
+    this.getListDate(floorList, '楼层')
+    this.getListDate(categoryList, '分类')
     this.submit(this.formInline);
   },
   methods: {
+    // 用于修改下拉框里面的一些数据
+    getListDate(fun, name) {
+      fun().then(({ data }) => {
+        const arr = this.filterParams.map(item => {
+          if (item.label === name) {
+            return {
+              ...item,
+              list: data.list || data
+            }
+          }
+          return item
+        })
+        this.filterParams = arr
+      })
+    },
     // 点击搜索按钮时接受form表单的函数
     submit(val) {
       storeList({ page: this.page, scene_type: 2, ...val }).then(res => {
