@@ -52,8 +52,15 @@
           </div>
         </div>
         <span slot="footer" class="dialog-footer">
-          <el-button @click="dialogVisible = false">取 消</el-button>
-          <el-button type="primary" @click="dialogVisible = false">提交</el-button>
+          <el-button
+            @click="dialogVisible = false"
+            style="background-color: #fff; color:#3ec6b6"
+          >取 消</el-button>
+          <el-button
+            type="primary"
+            @click="dialogVisible = false"
+            style="background-color: #3ec6b6; color:#fff"
+          >提交</el-button>
         </span>
       </el-dialog>
     </el-form>
@@ -71,7 +78,7 @@ export default {
     return {
       forms: {},
       radio: "2",
-      dialogVisible: false,
+      dialogVisible: false
     };
   },
   components: {
@@ -97,5 +104,6 @@ export default {
 };
 </script>
 
-<style scoped>
+<style >
+
 </style>
