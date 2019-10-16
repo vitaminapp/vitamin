@@ -21,17 +21,29 @@ export default {
   name: 'From',
   props: {
     formInline: {
-      type: Function,
-      default: function() {}
+      type: Object,
+      default: {}
     },
     filterParams: {
-      type: Function,
-      default: function() {}
+      type: Array,
+      default: []
     },
     submit: {
       type: Function,
       default: function() {}
     }
+    // formInline: {
+    //   type: Function,
+    //   default: function() {}
+    // },
+    // filterParams: {
+    //   type: Function,
+    //   default: function() {}
+    // },
+    // submit: {
+    //   type: Function,
+    //   default: function() {}
+    // }
   },
   data() {
     return {

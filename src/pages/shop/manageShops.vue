@@ -1,7 +1,8 @@
 <template>
   <div class="shop">
     <div class="main">
-      <Header />
+      <!-- <Header /> -->
+      店铺管理
       <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
         <el-tab-pane v-for="(list,index) in tabs" :key="index" :label="list.label" :name="list.name">
           <keep-alive>
@@ -110,7 +111,7 @@ export default {
     },
     // 点击搜索按钮时接受form表单的函数
     submit(val) {
-      storeList({ page: this.page, ...val }).then(res => {
+      storeList({ page: this.page, scene_type: 1, ...val }).then(res => {
         this.total = res.data.page.totalNum
         this.tableData = res.data.list
       })
