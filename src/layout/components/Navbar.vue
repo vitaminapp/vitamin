@@ -36,7 +36,7 @@ import { mapGetters } from 'vuex'
 import Hamburger from '@/components/Hamburger'
 
 export default {
-  name:"Navbar",
+  name: 'Navbar',
   components: {
     Hamburger
   },

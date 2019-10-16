@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div class="shop">
     <From :form-inline="formInline" :filter-params="filterParams" :submit="submit" />
     <Table :table-data="tableData" :columns="columns" :total="total" :set-page="setPage" />
   </div>
 </template>
 <script>
-import { storeList } from '@/api/shop'
+import { storeList } from "@/api/shop";
 export default {
   data() {
     return {
@@ -26,17 +26,51 @@ export default {
       total: 0
     };
   },
-  mounted() {
-    this.submit(this.formInline)
+  watch: {
+    page() {
+      this.submit(this.formInline)
+    }
   },
-  methods:{
+  mounted() {
+    this.submit(this.formInline);
+  },
+  methods: {
     // 点击搜索按钮时接受form表单的函数
     submit(val) {
       storeList({ page: this.page, scene_type: 2, ...val }).then(res => {
-        this.total = res.data.page.totalNum
-        this.tableData = res.data.list
-      })
+        this.total = res.data.page.totalNum;
+        this.tableData = res.data.list;
+      });
+    },
+    // 修改分页器当前页
+    setPage(val) {
+      this.page = val;
     }
   }
 };
 </script>
+<style lang="scss">
+.shop {
+  width: 100%;
+  height: 100%;
+  padding: 24px;
+  overflow: scroll;
+  .el-tabs__header {
+    margin-left: 24px;
+  }
+  .el-tabs__content {
+    height: 100%;
+  }
+  .demo-form {
+    padding: 24px;
+    padding-top: 0px;
+  }
+  .el-button--text {
+    color: #3ec6b6;
+  }
+  .el-pagination {
+    margin-top: 20px;
+    text-align: right;
+  }
+}
+</style>

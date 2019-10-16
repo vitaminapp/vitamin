@@ -29,7 +29,7 @@ export default {
   props: {
     tableData: {
       type: Array,
-      default:[]
+      default: []
     },
     columns: {
       type: Array,
