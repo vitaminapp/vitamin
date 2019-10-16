@@ -1,0 +1,16 @@
+.container{
+    display: flex;
+    min-height: 130px;
+    height: 100%;
+}
+
+.left{
+    width: 200px;
+    background-color: green;
+    height: 100%;
+}
+.right{
+    flex:1;
+    background-color: red;
+    height: 100%;
+}

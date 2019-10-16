@@ -18,3 +18,32 @@ export function getLogin(query) {
     param:query
   })
 }
+//店铺设置数据 菜单结构
+export function getMenuData(query) {
+  return request({
+    url: '/estore-setting/get-org-menu-list', 
+    method: 'post',
+    baseURL:"api",
+    param:query
+  })
+}
+
+//店铺设置数据 基本信息
+export function getMallData(query) {
+  return request({
+    url: '/mall/get-mall-data', 
+    method: 'post',
+    baseURL:"api",
+    param:query
+  })
+}
+
+//店铺设置数据 菜单结构
+export function getLimtData(query) {
+  return request({
+    url: '/setting-service/access-limit-get', 
+    method: 'get',
+    baseURL:"api",
+    param:query
+  })
+}

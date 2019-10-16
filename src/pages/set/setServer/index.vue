@@ -1,11 +1,12 @@
 <template>
-  <div class="chart-container">
-    服务店铺
+  <div class="container">
+　　<div class="left">left</div> 
+　　<div class="right">right</div> 
   </div>
 </template>
 
 <script>
-
+import "./index.scss"
 export default {
   name: 'SetServer'
 }
