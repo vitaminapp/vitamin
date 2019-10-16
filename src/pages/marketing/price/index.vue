@@ -52,12 +52,12 @@
 <script>
 import { mapActions, mapState } from 'vuex'
 export default {
-    props: {},
   components: {},
+  props: {},
 
   data() {
     return {
-      activeName: 'second',
+      activeName: 'first',
       total1: 0,
       flag: true,
       pageSize: 10,

@@ -118,6 +118,7 @@
   </div>
 </template>
 <script>
+// import { mapActions, mapState } from 'vuex'
 export default {
   components: {
 
@@ -143,6 +144,11 @@ export default {
   created() {
 
   },
+  // async created() {
+  //   await this.FetchList({ page: 1, pageSize: 1000, tag_status: 3, type: 2 })
+  //   // console.log(this.cardTypelist,'cardTypelist')
+  //   this.tempList = this.cardTypelist
+  // },
   mounted() {
 
   },
