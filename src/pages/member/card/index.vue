@@ -46,16 +46,16 @@
             选择默认地区:
             <span v-for="(item,index) in registerMessage.defaultArea" :key="index">{{ item }}</span>
           </li>
-          <p class="alemd">修改注册信息</p>
+          <p class="alemd" @click="changeDrawer">修改注册信息</p>
         </div>
         <div v-if="initid==2" class="showbox">
-          <p class="alemd" style="margin:0">添加提示语</p>
+          <p class="alemd" style="margin:0" @click="changeDrawer">添加提示语</p>
         </div>
         <div v-if="initid==3" class="showbox">
-          <p class="alemd" style="margin:0">添加条款</p>
+          <p class="alemd" style="margin:0" @click="changeDrawer">添加条款</p>
         </div>
         <div v-if="initid==4" class="showbox">
-          <span class="addbtn" style="margin:0">+</span>
+          <span class="addbtn" style="margin:0" @click="changeDrawer">+</span>
           <div class="table">
             <el-table
               :data="shopList"
@@ -90,17 +90,147 @@
         </div>
       </div>
       <Drawer
-        title="我是一个抽屉组件"
+        v-if="initid==0"
+        :title="title"
         :display.sync="display"
         :inner="true"
         :width="drawerWidth"
-        :mask="false"
+        :mask="mask"
+        @changedisplay="changedisplay"
+        @changemask="changemask"
       >
-        1. Hello, world!
-        2. Do you like it?
+        <div class="drawer_centent">
+          <el-form
+            ref="numberValidateForm"
+            :model="cardFrom"
+            label-width="100%"
+            label-position="top"
+            class="demo-ruleForm"
+          >
+            <el-form-item
+              label="会员等级编码"
+              :rules="[
+                { required: true, message: '输入内容不能为空'},
+              ]"
+            >
+              <el-input v-model.number="cardFrom.name" type="age" autocomplete="off" />
+            </el-form-item>
+            <el-form-item
+              label="会员等级名称"
+              :rules="[
+                { required: true, message: '输入内容不能为空'},
+              ]"
+            >
+              <el-input v-model.number="cardFrom.name" type="age" autocomplete="off" />
+            </el-form-item>
+            <el-form-item
+              label="卡片图案"
+              :rules="[
+                { required: true, message: '输入内容不能为空'},
+              ]"
+            >
+              <el-upload
+                class="avatar-uploader"
+                action="https://jsonplaceholder.typicode.com/posts/"
+                :show-file-list="false"
+                :on-success="handleAvatarSuccess"
+                :before-upload="beforeAvatarUpload"
+              >
+                <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                <i v-else class="el-icon-plus avatar-uploader-icon" />
+              </el-upload>
+            </el-form-item>
+          </el-form>
+        </div>
+      </Drawer>
+      <Drawer
+        v-else-if="initid==1"
+        :title="title"
+        :display.sync="display"
+        :inner="true"
+        :width="drawerWidth"
+        :mask="mask"
+        @changedisplay="changedisplay"
+        @changemask="changemask"
+      >
+        <li v-for="(item,index) in registerList" :key="item.id">
+          <el-checkbox />
+          <span>{{ item.value }}</span>
+          <el-radio
+            v-model="item.status"
+            :label="2"
+            @change="(value)=>{changeRadio(value,index)
+            }"
+          >选填</el-radio>
+          <el-radio
+            v-model="item.status"
+            :label="1"
+            @change="(value)=>{changeRadio(value,index)}"
+          >必填</el-radio>
+        </li>
+      </Drawer>
+      <Drawer
+        v-else-if="initid==2"
+        :title="title"
+        :display.sync="display"
+        :inner="true"
+        :width="drawerWidth"
+        :mask="mask"
+        @changedisplay="changedisplay"
+        @changemask="changemask"
+      >
+        <el-input v-model="input" placeholder="请输入内容" />
+      </Drawer>
+      <Drawer
+        v-else-if="initid==3"
+        :title="title"
+        :display.sync="display"
+        :inner="true"
+        :width="drawerWidth"
+        :mask="mask"
+        @changedisplay="changedisplay"
+        @changemask="changemask"
+      >
+        <el-input v-model="input" placeholder="请输入内容" />
+      </Drawer>
+      <Drawer
+        v-else-if="initid==4"
+        :title="title"
+        :display.sync="display"
+        :inner="true"
+        :width="drawerWidth"
+        :mask="mask"
+        @changedisplay="changedisplay"
+        @changemask="changemask"
+      >
+        <el-form
+          v-for="(item,index) in changeshop"
+          ref="numberValidateForm"
+          :key="index"
+          :model="changeshop"
+          label-width="100px"
+          label-position="top"
+          class="demo-ruleForm"
+        >
+          <el-form-item
+            :label="item.title"
+            prop="item.prop"
+            :rules="[
+              { required: true, message: `${item.title}不能为空`}
+            ]"
+          >
+            <el-input
+              v-if="item.isipt"
+              v-model.number="item.value"
+              type="age"
+              placeholder
+              autocomplete="off"
+            />
+            <el-cascader v-else clearable />
+          </el-form-item>
+        </el-form>
       </Drawer>
     </div>
-
   </div>
 </template>
 <script>
@@ -132,9 +262,45 @@ export default {
           tit: '商城门店'
         }
       ],
+      changeshop: [
+        {
+          title: 'CRM门店编码',
+          prop: 'crm_store_code',
+          value: '',
+          isipt: true
+        },
+        {
+          title: '门店名称',
+          prop: 'store_name',
+          value: '',
+          isipt: true
+        },
+        {
+          title: '所属城市',
+          prop: 'city_name',
+          value: '',
+          isipt: false
+        },
+        {
+          title: '门店地址',
+          prop: 'address',
+          value: '',
+          isipt: true
+        }
+      ],
       initid: 0,
       display: false,
-      drawerWidth: '500px'
+      mask: false,
+      drawerWidth: '500px',
+      cardFrom: {
+        grade: '',
+        name: ''
+      },
+      title: '添加卡片',
+      imageUrl: '',
+      registerList: [],
+      input: '',
+      textarea: ''
     }
   },
   computed: {
@@ -145,28 +311,48 @@ export default {
   },
   methods: {
     ...mapActions('nested', ['getCardType', 'getRegister', 'getShopList']),
+    handleAvatarSuccess(res, file) {
+      this.imageUrl = URL.createObjectURL(file.raw)
+    },
+    beforeAvatarUpload(file) {
+      const isJPG = file.type === 'image/jpeg'
+      const isLt2M = file.size / 1024 / 1024 < 2
+
+      if (!isJPG) {
+        this.$message.error('上传头像图片只能是 JPG 格式!')
+      }
+      if (!isLt2M) {
+        this.$message.error('上传头像图片大小不能超过 2MB!')
+      }
+      return isJPG && isLt2M
+    },
+    changeRadio(value, index) {
+      this.registerList[index].status = value
+    },
     changeid(id) {
       this.initid = id
       switch (id) {
         case 0:
           this.getCardType()
+          this.title = '添加卡片'
           break
         case 1:
           this.getRegister()
+          this.title = '注册信息'
+          break
+        case 2:
+          this.title = '保存推荐提示语'
+          break
+        case 3:
+          this.title = '使用条款'
           break
         case 4:
           this.getShopList()
+          this.title = '新增商场门店'
           break
         default:
           break
       }
-    },
-    handleClose(done) {
-      this.$confirm('确认关闭？')
-        .then(_ => {
-          done()
-        })
-        .catch(_ => {})
     },
     iscenter({ row, column, rowIndex, columnIndex }) {
       if (columnIndex === 4 || columnIndex === 5) {
@@ -178,13 +364,53 @@ export default {
       return ' text-align: center;font-size:14;font-weight: normal;background:#fafafa;color:#000'
     },
     changeDrawer() {
+      console.log('kkkk')
       this.display = true
+      this.mask = true
+    },
+    changedisplay(boolean) {
+      this.display = boolean
+    },
+    changemask(boolean) {
+      this.mask = boolean
+    }
+  },
+  watch: {
+    registerMessage() {
+      this.registerList = this.registerMessage.registerForm
+    },
+    registerList() {
+      console.log(this.registerList)
     }
   }
-
 }
 </script>
 <style lang="scss">
 @import url("./css/index.css");
+</style>
+<style>
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.avatar-uploader .el-upload:hover {
+  border-color: #409eff;
+}
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 264px;
+  height: 164px;
+  line-height: 164px;
+  text-align: center;
+}
+.avatar {
+  width: 178px;
+  height: 178px;
+  display: block;
+}
 </style>
 

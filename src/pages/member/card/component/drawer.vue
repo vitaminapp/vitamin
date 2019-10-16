@@ -1,7 +1,6 @@
 <template>
   <div class="drawer">
-    <div class="mask_drawer" :style="mainStyle">
-      <div :class="maskClass" @click="closeByMask" />
+    <div :class="{'isbgcmask_drawer':mask==true,'nobgcmask_drawer':mask==false}">
       <div :class="mainClass" :style="mainStyle" class="main">
         <div class="drawer-head">
           <span>{{ title }}</span>
@@ -9,6 +8,10 @@
         </div>
         <div class="drawer-body">
           <slot />
+        </div>
+        <div class="drawer-footer">
+          <el-button plain>取消</el-button>
+          <el-button plain>确定</el-button>
         </div>
       </div>
     </div>
@@ -37,8 +40,7 @@ export default {
 
     // 是否显示遮罩
     mask: {
-      type: Boolean,
-      default: true
+      type: Boolean
     },
 
     // 是否点击遮罩关闭
@@ -60,13 +62,6 @@ export default {
     }
   },
   computed: {
-    maskClass: function() {
-      return {
-        'mask-show': this.mask && this.display,
-        'mask-hide': !(this.mask && this.display),
-        inner: this.inner
-      }
-    },
     mainClass: function() {
       return {
         'main-show': this.display,
@@ -89,11 +84,9 @@ export default {
     }
   },
   methods: {
-    closeByMask() {
-      this.maskClosable && this.$emit('update:display', false)
-    },
     closeByButton() {
-      this.$emit('update:display', false)
+      this.$emit('changedisplay', false)
+      this.$emit('changemask', false)
     }
   }
 }
@@ -102,55 +95,80 @@ export default {
 <style lang="scss" scoped>
 .drawer {
   /* 遮罩 */
-  .mask_drawer {
+  .isbgcmask_drawer {
     position: fixed;
     top: 0;
     right: 0;
-    width: 100%;
+    width: 1000%;
     height: 100%;
     z-index: 10;
     background-color: rgba(0, 0, 0, 0.5);
+    box-sizing: border-box;
     /* 滑块 */
+    display: block;
+    display: flex;
+    flex-direction: column;
     .main {
       position: fixed;
       z-index: 10;
       top: 0;
+      width: 100%;
       height: 100%;
       background: #fff;
       transition: all 0.5s;
+      padding: 0;
     }
     .main-show {
       display: block;
+      display: flex;
+      flex-direction: column;
+      .drawer-head {
+        justify-content: space-between;
+        height: 54px;
+        padding: 16px 24px;
+        font-size: 16px;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        .close-btn {
+          display: inline-block;
+          cursor: pointer;
+          height: 100%;
+          padding-left: 360px;
+        }
+      }
+      .drawer-body {
+        flex: 1;
+        font-size: 14px;
+        padding: 24px;
+      }
+      .drawer-footer {
+        display: flex;
+        justify-content: flex-end;
+        width: 100%;
+        height: 55px;
+        padding: 10px;
+        border-bottom: 1px solid #eee;
+      }
     }
     .main-hide {
       display: none;
     }
-
     /* 某个元素内部显示 */
     .inner {
       position: absolute;
     }
-
     /* 其他样式 */
-    .drawer-head {
-      display: flex;
-      justify-content: space-between;
-      height: 45px;
-      line-height: 45px;
-      padding: 0 15px;
-      font-size: 16px;
-      border-bottom: 1px solid #eee;
-      .close-btn {
-        display: inline-block;
-        cursor: pointer;
-        height: 100%;
-        padding-left: 20px;
-      }
-    }
-    .drawer-body {
-      font-size: 14px;
-      padding: 15px;
-    }
+  }
+  .nobgcmask_drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 100%;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    /* 滑块 */
   }
 }
 </style>
