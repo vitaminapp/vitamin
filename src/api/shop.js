@@ -44,4 +44,21 @@ export function brandList(query) {
     baseURL: '/api'
   })
 }
+/**
+ *
+ * 获取店铺管理 授权品牌数据
+ */
+export function storeList(query) {
+  return request({
+    url: '/store/get-store-list',
+    method: 'post',
+    baseURL: '/api',
+    data: {
+      is_e_shop: 1,
+      store_type: '',
+      scene_type: 1,
+      ...query
+    }
+  })
+}
 
