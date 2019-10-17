@@ -20,6 +20,27 @@
               <el-radio v-model="radio4" label="2">否</el-radio>
           </div>
         </div>
+        <div class="overflow margin-24-btm">
+          <p class="margin-10-right float-left" style="width: 180px;">是否可与店铺活动叠加</p>
+          <div class="select">
+              <el-radio v-model="radio5" label="1">是</el-radio>
+              <el-radio v-model="radio5" label="2">否</el-radio>
+          </div>
+        </div>
+        <div class="overflow margin-24-btm">
+          <p class="margin-10-right float-left" style="width: 180px;">是否可与店铺券叠加</p>
+          <div class="select">
+              <el-radio v-model="radio6" label="1">是</el-radio>
+              <el-radio v-model="radio6" label="2">否</el-radio>
+          </div>
+        </div>
+        <div class="overflow margin-24-btm">
+          <p class="margin-10-right float-left" style="width: 180px;">是否可与商场券叠加</p>
+          <div class="select">
+              <el-radio v-model="radio7" label="1">是</el-radio>
+              <el-radio v-model="radio7" label="2">否</el-radio>
+          </div>
+        </div>
         <div class="margin-24-btm">
           <h4>减免类型</h4>
           <p>
@@ -118,7 +139,8 @@
 
           </el-form>
         </div>
-        <h4 class="margin-24-btm">活动信息</h4>
+     <div>
+          <h4 class="margin-24-btm">活动信息</h4>
         <div class="overflow margin-24-btm">
           <p class="margin-10-right float-left" style="width: 80px; line-height: 32px;">
             <span class="color-FF7887">*</span>开始时间
@@ -145,6 +167,9 @@
             />
           </div>
         </div>
+           <h4 class="margin-24-btm">条件设定</h4>
+        
+        </div>
       </div>
     </div>
     <div class="bottom-footbar">
@@ -170,6 +195,9 @@ export default {
       radio2: '1',
       radio3: '1',
       radio4:'1',
+      radio5:'1',
+      radio6:'1',
+      radio7:'1',
       value1: '',
       value2: '',
       name: '',
