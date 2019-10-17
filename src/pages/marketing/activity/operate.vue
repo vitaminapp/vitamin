@@ -6,14 +6,21 @@
       </div>
       <div class="basic-edit card-group margin-24-top">
         <h4 class="margin-24-btm">活动信息</h4>
-        <div>
+        <div class="margin-24-btm">
           <h4>使用范围</h4>
           <p>
             <el-radio v-model="radio1" label="1">商场</el-radio>
             <el-radio v-model="radio1" label="2">店铺</el-radio>
           </p>
         </div>
-        <div>
+        <div class="overflow margin-24-btm">
+          <p class="margin-10-right float-left" style="width: 180px;">是否可与一口价叠加</p>
+          <div class="select">
+              <el-radio v-model="radio4" label="1">是</el-radio>
+              <el-radio v-model="radio4" label="2">否</el-radio>
+          </div>
+        </div>
+        <div class="margin-24-btm">
           <h4>减免类型</h4>
           <p>
             <el-radio v-model="radio2" label="1">是</el-radio>
@@ -162,6 +169,7 @@ export default {
       radio1: '1',
       radio2: '1',
       radio3: '1',
+      radio4:'1',
       value1: '',
       value2: '',
       name: '',
@@ -294,7 +302,9 @@ export default {
       }
 
     }
-
+    .select{
+      margin-top: 10px;
+    }
     .bg-white {
       background: #fff;
       border-bottom: 1px solid #ccc;
