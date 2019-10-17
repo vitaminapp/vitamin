@@ -114,7 +114,19 @@ export default {
       this.formInline=val
       storeList({ page: this.page, scene_type: 1, ...val }).then(res => {
         this.total = res.data.page.totalNum
-        this.tableData = res.data.list
+        
+
+        let arr = res.data.list;
+        arr.map(item=>{
+          for(var i in item){
+            if(!item[i]){
+              item[i]="--"
+            }else{
+              item[i]=item[i]
+            }
+          }
+        })
+        this.tableData = arr
       })
     }
   }
