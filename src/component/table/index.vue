@@ -6,7 +6,8 @@
         :key="index"
         :label="item.title"
         :prop="item.key"
-      />
+      >
+      </el-table-column>
       <el-table-column fixed="right" label="操作">
         <template slot-scope="scope">
           <el-button type="text" @click="examine(scope)">查看</el-button>
@@ -28,21 +29,37 @@ export default {
   name: 'Table',
   props: {
     tableData: {
-      type: Function,
-      default: function() {}
+      type: Array,
+      default: []
     },
     columns: {
-      type: Function,
-      default: function() {}
+      type: Array,
+      default: []
     },
     total: {
-      type: Function,
-      default: function() {}
+      type: Number,
+      default: 0
     },
     setPage: {
       type: Function,
       default: function() {}
     }
+    // tableData: {
+    //   type: Function,
+    //   default: function() {}
+    // },
+    // columns: {
+    //   type: Function,
+    //   default: function() {}
+    // },
+    // total: {
+    //   type: Function,
+    //   default: function() {}
+    // },
+    // setPage: {
+    //   type: Function,
+    //   default: function() {}
+    // }
   },
   methods: {
     handleCurrentChange(val) {

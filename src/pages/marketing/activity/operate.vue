@@ -2,7 +2,7 @@
   <div class="chart-container">
     <div class="content-action">
       <div class="card-group">
-        <h3>一口价</h3>
+        <h3>新建减免活动</h3>
       </div>
       <div class="basic-edit card-group margin-24-top">
         <h4 class="margin-24-btm">活动信息</h4>
@@ -14,7 +14,7 @@
           </p>
         </div>
         <div>
-          <h4>是否可以与其他活动叠加</h4>
+          <h4>减免类型</h4>
           <p>
             <el-radio v-model="radio2" label="1">是</el-radio>
             <el-radio v-model="radio2" label="2">否</el-radio>

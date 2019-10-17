@@ -16,9 +16,22 @@ export function grtStaffData(query) {
 
 /**
  *
- * 获取表格数据
+ * 获取员工管理的表格数据
  */
 export function getTableData(query){
+    return request({
+        url: 'user/list',
+        method: 'post',
+        baseURL: '/api',
+        data:query
+    })
+}
+
+/**
+ *
+ * 获取邀请中的表格数据
+ */
+export function getyqData(query){
     return request({
         url: 'user/list',
         method: 'post',
@@ -29,10 +42,6 @@ export function getTableData(query){
     })
 }
 
-/**
- *
- * 顾客账号
- */
 
 /**
  *

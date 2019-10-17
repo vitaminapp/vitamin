@@ -56,9 +56,25 @@ export function storeList(query) {
     data: {
       is_e_shop: 1,
       store_type: '',
-      scene_type: 1,
       ...query
     }
   })
 }
+/**
+ *
+ * 获取页面管理
+ */
+export function pageList(query) {
+  return request({
+    url: '/page-manage/list',
+    method: 'post',
+    baseURL: '/api',
+    data: {
+      is_e_shop: 1,
+      store_type: '',
+      ...query
+    }
+  })
+}
+
 
