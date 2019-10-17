@@ -21,12 +21,12 @@ export default {
   name: 'From',
   props: {
     formInline: {
-      type: Function,
-      default: function() {}
+      type: Object,
+      default: {}
     },
     filterParams: {
-      type: Function,
-      default: function() {}
+      type: Array,
+      default: []
     },
     submit: {
       type: Function,
@@ -39,11 +39,15 @@ export default {
   },
   methods: {
     submitForm() {
+      
       this.submit(this.$refs.formInline.model)
     },
     resetForm(formName) {
       this.formInline = {}
     }
+  },
+  created(){
+    console.log(this.$refs.formInline.model)
   }
 }
 </script>

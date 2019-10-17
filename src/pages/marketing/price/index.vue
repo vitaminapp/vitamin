@@ -6,9 +6,15 @@
       </div>
       <div class="bg-white padding-24-top margin-24-top">
         <el-tabs v-model="activeName" @tab-click="handleClicks">
-          <el-tab-pane label="活动管理" name="first">活动管理</el-tab-pane>
-          <el-tab-pane label="待审核" name="second">待审核</el-tab-pane>
-          <el-tab-pane label="审核不通过" name="third">审核不通过</el-tab-pane>
+          <el-tab-pane label="活动管理" name="first">
+            <From :form-inline="formInline" :filter-params="filterParams" :submit="submit" />
+          </el-tab-pane>
+          <el-tab-pane label="待审核" name="second">
+            <From :form-inline="formInline" :filter-params="filterParams" :submit="submit" />
+          </el-tab-pane>
+          <el-tab-pane label="审核不通过" name="third">
+            <From :form-inline="formInline" :filter-params="filterParams" :submit="submit" />
+          </el-tab-pane>
         </el-tabs>
       </div>
       <div class="nav-selected" />
@@ -16,16 +22,16 @@
         <div class="btn-add" @click="btnAdd">+</div>
         <div class="ant-table-wrapper index-table margin-24-top margin-24-btm">
           <el-table :data="tempList" style="width: 100%;background: #595959;">
-            <el-table-column prop="active_name" label="活动名称" />
-            <el-table-column prop="active_range_str" label="活动范围" />
-            <el-table-column prop="created_at_strstart-date" label="开始时间" />
-            <el-table-column prop="end_time_str" label="结束时间" />
-            <el-table-column prop="join_store_nums" label="参加店铺/数" />
-            <el-table-column prop="join_prod_nums" label="商品数" />
-            <el-table-column prop="active_status_str" label="活动状态" />
-            <el-table-column prop="created_at_str" label="创建时间" />
-            <el-table-column prop="created_by_str" label="创建者" />
-            <el-table-column label="操作" width="100">
+            <el-table-column prop="active_name" label="活动名称" width="256" />
+            <el-table-column prop="active_range_str" label="活动范围" width="93" />
+            <el-table-column prop="created_at_strstart-date" label="开始时间" width="168" />
+            <el-table-column prop="end_time_str" label="结束时间" width="168" />
+            <el-table-column prop="join_store_nums" label="参加店铺/数" width="114" />
+            <el-table-column prop="join_prod_nums" label="商品数" width="78" />
+            <el-table-column prop="active_status_str" label="活动状态" width="93" />
+            <el-table-column prop="created_at_str" label="创建时间" width="168" />
+            <el-table-column prop="created_by_str" label="创建者" width="102" />
+            <el-table-column label="操作" width="150">
               <template slot-scope="scope">
                 <el-button type="text" size="small" @click="handleClick(scope.row)">查看</el-button>
                 <el-button type="text" size="small">失效</el-button>
@@ -51,10 +57,12 @@
 
 <script>
 import { mapActions, mapState } from 'vuex'
+// import Form from '../../../component/from'
 export default {
-  components: {},
-  props: {},
+  components: {
 
+  },
+  props: {},
   data() {
     return {
       activeName: 'first',
@@ -62,33 +70,43 @@ export default {
       flag: true,
       pageSize: 10,
       currentPage1: 1,
+      page: 1,
       tempList: [],
       ruleForm: {
         name: '',
         region: ''
-      }
+      },
+      formInline: {},
+
+      filterParams: []
     }
   },
 
   computed: {
     ...mapState('marketing', {
-      cardTypelist: 'cardTypelist'
+      cardTypelist: 'cardTypelist',
+      active_range: 'active_range',
+      active_status: 'active_status',
+      discount_threshold_type: 'discount_threshold_type',
+      floor: 'floor',
+      store_category: 'store_category',
+      vm_store: 'vm_store'
     })
   },
-  methods: {
-    ...mapActions('marketing', ['FetchList']),
-    async handleClicks(vue) {
-      if (vue.$options.propsData.label === '活动管理') {
-        await this.FetchList({ page: 1, pageSize: 1000, tag_status: 3, type: 2 })
-        this.tempList = this.cardTypelist
-      } else if (vue.$options.propsData.label === '待审核') {
-        await this.FetchList({ page: 1, pageSize: 1000, tag_status: 1, type: 2 })
-        this.tempList = this.cardTypelist
-      } else {
-        await this.FetchList({ page: 1, pageSize: 1000, tag_status: 2, type: 2 })
-        this.tempList = this.cardTypelist
-      }
-    },
+
+  async created() {
+    await this.FetchList({ page: 1, pageSize: 1000, tag_status: 3, type: 2 })
+    await this.getsearch({ tag_status: 2, type: 2 })
+    this.tempList = this.cardTypelist
+  },
+  mounted() {
+    this.$nextTick(() => {
+      console.log(this.active_range, this.active_status)
+      this.updata()
+      this.submit(this.formInline)
+    })
+  }, methods: {
+    ...mapActions('marketing', ['FetchList', 'getsearch']),
 
     gettabData() {
       const { pageSize, currentPage1, cardTypelist } = this
@@ -112,7 +130,7 @@ export default {
 
     btnAdd() {
       this.$router.push({
-        path: '/marketing/operate'
+        path: '/marketing/priceoperate'
         // query:{
         //   id:this.id ,
         // }
@@ -133,21 +151,85 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields()
+    },
+    submit(val) {
+      // storeList({ page: this.page, ...val }).then(res => {
+      //   this.total = res.data.page.totalNum
+      //   this.tableData = res.data.list
+      // })
+    },
+    updata() {
+      this.filterParams = [
+        { label: '活动名称', key: 'vm_store_name', type: 'elInput' },
+        { label: '活动范围', key: 'floor_name', type: 'elSelect' },
+        { label: '活动状态', key: 'name_id', type: 'elSelect', list: null },
+        { label: '楼层', key: 'vm_store', type: 'elSelect', list: null },
+        { label: '店铺分类', key: 'vm_store', type: 'elSelect', list: null },
+        { label: '店铺', key: 'vm_store', type: 'elSelect', list: null },
+        { label: '开始时间', key: 'start_time', type: 'elSelect', list: null },
+        { label: '结束时间', key: 'end_time', type: 'elSelect', list: null }
+      ]
+      this.getListDate(this.active_range, '活动范围')
+      this.getListDate(this.active_status, '活动状态')
+    },
+    getListDate(fun, name) {
+      const arr = this.filterParams.map(item => {
+        if (item.label === name) {
+          return {
+            ...item
+            // list: data.list || data
+          }
+        }
+        return item
+      })
+      this.filterParams = arr
+    },
+    // 修改分页器当前页
+    setPage(val) {
+      this.page = val
+    },
+    handleClick(vue) {
+      console.log(vue)
+    },
+    async handleClicks(vue) {
+      if (vue.$options.propsData.label === '活动管理') {
+        await this.FetchList({
+          page: 1,
+          pageSize: 1000,
+          tag_status: 3,
+          type: 2
+        })
+        this.tempList = this.cardTypelist
+      } else if (vue.$options.propsData.label === '待审核') {
+        await this.FetchList({
+          page: 1,
+          pageSize: 1000,
+          tag_status: 1,
+          type: 2
+        })
+        this.tempList = this.cardTypelist
+      } else {
+        await this.FetchList({
+          page: 1,
+          pageSize: 1000,
+          tag_status: 2,
+          type: 2
+        })
+        this.tempList = this.cardTypelist
+      }
     }
-  },
-  async created() {
-    await this.FetchList({ page: 1, pageSize: 1000, tag_status: 3, type: 2 })
-    // console.log(this.cardTypelist,'cardTypelist')
-    this.tempList = this.cardTypelist
   }
+
 }
 </script>
 
 <style scoped lang="scss">
 .chart-container {
   width: 100%;
+  height: 100%;
+  overflow-y: auto;
   font-size: 14px;
-  background: #fcfcfc;
+  background: #f0ecec;
   .content-action {
     width: auto;
     height: 100%;
