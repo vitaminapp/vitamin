@@ -6,7 +6,8 @@
         :key="index"
         :label="item.title"
         :prop="item.key"
-      />
+      >
+      </el-table-column>
       <el-table-column fixed="right" label="操作">
         <template slot-scope="scope">
           <el-button type="text" @click="examine(scope)">查看</el-button>

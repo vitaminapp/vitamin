@@ -56,12 +56,6 @@ const marketRouter = {
     meta: { title: '一口价', icon: 'list' }
   },
   {
-    path: 'a',
-    component: () =>
-                import('@/pages/marketing/price/a'),
-    hidden: true
-  },
-  {
     path: 'operate',
     component: () =>
                 import('@/pages/marketing/price/operate'),

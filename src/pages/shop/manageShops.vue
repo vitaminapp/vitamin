@@ -112,7 +112,19 @@ export default {
     submit(val) {
       storeList({ page: this.page, ...val }).then(res => {
         this.total = res.data.page.totalNum
-        this.tableData = res.data.list
+        
+
+        let arr = res.data.list;
+        arr.map(item=>{
+          for(var i in item){
+            if(!item[i]){
+              item[i]="--"
+            }else{
+              item[i]=item[i]
+            }
+          }
+        })
+        this.tableData = arr
       })
     }
   }
