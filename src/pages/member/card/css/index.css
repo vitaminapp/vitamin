@@ -109,3 +109,7 @@
   margin-top: 24px;
   color: #3ec6b6;
 }
+
+.card_warper .content .drawer_centent {
+  padding: 16px 24px;
+}
