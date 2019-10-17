@@ -3,7 +3,7 @@
     <div :class="{'isbgcmask_drawer':mask==true,'nobgcmask_drawer':mask==false}">
       <div :class="mainClass" :style="mainStyle" class="main">
         <div class="drawer-head">
-          <span>{{ title }}</span>
+          <span class="title">{{ title }}</span>
           <span v-show="closable" class="close-btn" @click="closeByButton">X</span>
         </div>
         <div class="drawer-body">
@@ -123,18 +123,19 @@ export default {
       display: flex;
       flex-direction: column;
       .drawer-head {
-        justify-content: space-between;
-        height: 54px;
-        padding: 16px 24px;
-        font-size: 16px;
-        border-bottom: 1px solid #eee;
-        display: flex;
-        .close-btn {
-          display: inline-block;
-          cursor: pointer;
-          height: 100%;
-          padding-left: 360px;
-        }
+       width: 100%;
+       height: 54px;
+       padding: 16px 24px;
+       display: flex;
+         border-bottom: 1px solid #eee;
+       .title{
+         flex: 1;
+       }
+       .close-btn{
+         display: flex;
+         width: 20px;
+         height: 100%;
+       }
       }
       .drawer-body {
         flex: 1;
