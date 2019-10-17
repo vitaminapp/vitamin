@@ -111,6 +111,7 @@ export default {
     },
     // 点击搜索按钮时接受form表单的函数
     submit(val) {
+      this.formInline=val
       storeList({ page: this.page, scene_type: 1, ...val }).then(res => {
         this.total = res.data.page.totalNum
         this.tableData = res.data.list
@@ -120,32 +121,42 @@ export default {
 }
 </script>
 <style lang="scss">
-.shop{
+.shop {
   width: 100%;
   height: 100%;
-  padding:24px;
+  padding: 24px;
   overflow: scroll;
-  // text-overflow: ellipsis;
-  .main{
+  .main {
     width: 100%;
-    header{
+    header {
       padding: 24px;
       background: #fff;
     }
-    .el-tabs__header{
-      margin-left: 24px;
+    .xlsx{
+      margin-top: 24px;
+      color: rgba(0,0,0,.65);
+      font-size: 14px;
     }
-    .el-tabs__content{
+    .el-tabs{
+      margin-top: 26px;
+    }
+    .el-tabs__nav{
+      border: 0 !important;
+    }
+    .el-tabs__content {
       height: 100%;
     }
-    .demo-form{
-      padding: 24px;
-      padding-top: 0px;
+    .el-tabs__item{
+      border-left: 0;
     }
-    .el-button--text{
+    .is-active{
+      color: #3ec6b6 !important;
+      border-bottom: 2px solid #3ec6b6 !important;
+    }
+    .el-button--text {
       color: #3ec6b6;
     }
-    .el-pagination{
+    .el-pagination {
       margin-top: 20px;
       text-align: right;
     }

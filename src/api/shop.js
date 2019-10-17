@@ -60,4 +60,21 @@ export function storeList(query) {
     }
   })
 }
+/**
+ *
+ * 获取页面管理
+ */
+export function pageList(query) {
+  return request({
+    url: '/page-manage/list',
+    method: 'post',
+    baseURL: '/api',
+    data: {
+      is_e_shop: 1,
+      store_type: '',
+      ...query
+    }
+  })
+}
+
 

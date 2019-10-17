@@ -3,9 +3,44 @@
     <el-form ref="formInline" :inline="true" :model="formInline" class="demo-form">
       <el-form-item v-for="(filter, index) in filterParams" :key="index" :label="filter.label" class="item">
         <component :is="filter.type" v-model="formInline[filter.key]" :placeholder="'请填写'+filter.label" class="content">
-          <el-option v-for="(value,ind) in filter.list" :key="ind" :label="value.name" :value="value.id">
-            <!-- <el-option  v-for="group in value.children" :key="group.id" :label="group.name"></el-option> -->
-          </el-option>
+          <el-option  v-for="(value,ind) in filter.list" :key="ind" v-show="value.name"  :label="value.name" :value="value.id"/>          
+          
+           <!-- <el-option  v-for="(value,ind) in filter.list" :key="ind" v-show="value.name"  :label="value.name" :value="value.id"/>           -->
+          
+          <!-- <el-option-group
+            v-for="(group,ind) in filter.list"
+            :placeholder="'请填写'+filter.label"
+            :key="ind"
+            :value="group.id"
+            :label="group.name"
+            v-show="group.children"
+            >
+            
+            <el-option
+              v-for="(item,num) in group.children"
+              :key="num"
+              :label="item.name"
+              :value="item.value">
+            </el-option>
+          </el-option-group> -->
+
+
+
+
+          <!-- <el-option-group
+            v-for="(group,ind) in filter.list"
+            :placeholder="'请填写'+filter.label"
+            :key="ind"
+            :value="group.id"
+            :label="group.name">
+            <el-option
+              v-for="(item,index) in group.children"
+              :key="index"
+              :label="item.name"
+              :value="item.value">
+            </el-option>
+          </el-option-group> -->
+
         </component>
       </el-form-item>
       <el-form-item class="last">
@@ -51,11 +86,14 @@ export default {
   },
   methods: {
     submitForm() {
-      this.submit(this.$refs.formInline.model)
+      this.submit({...this.$refs.formInline.model,page:1})
     },
     resetForm(formName) {
-      this.formInline = {}
+      this.submit({})
     }
+  },
+  mounted(){
+    console.log(this.filterParams,"数据")
   }
 }
 </script>
@@ -83,6 +121,9 @@ export default {
   border-radius: 4px;
   padding: 6px 15px;
 }
+.el-select-dropdown__item{
+  color: #3ec6b6;
+}
 .el-form-item__label{
   text-align: left;
   font-size: 12px;
@@ -92,7 +133,10 @@ export default {
   max-width: 200px;
 }
 .el-form--inline .el-form-item:last-child{
-  width: 88%;
+  width: 92%;
   text-align: right;
+}
+.el-date-editor.el-input  {
+  max-width: 200px;
 }
 </style>

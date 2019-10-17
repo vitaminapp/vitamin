@@ -54,6 +54,7 @@ export default {
     },
     // 点击搜索按钮时接受form表单的函数
     submit(val) {
+      this.formInline=val
       storeList({ page: this.page, scene_type: 2, ...val }).then(res => {
         this.total = res.data.page.totalNum;
         this.tableData = res.data.list;
