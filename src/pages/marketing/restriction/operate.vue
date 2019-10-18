@@ -77,12 +77,15 @@
                     </span>
               </div>
         </div>
+     </div>
+        </div>
     </div>
     <div class="bottom-footbar">
       <el-button size="small" @click="addlist">添加商品</el-button>
       <el-button size="small" @click="qx">取消</el-button>
 
     </div>
+
   </div>
 </template>
 <script>
