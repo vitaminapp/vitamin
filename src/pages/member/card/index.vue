@@ -37,6 +37,7 @@
             </el-table-column>
           </el-table>
         </div>
+        <!-- 会员 -->
         <div v-if="initid==1" class="showbox">
           <li v-for="item in registerMessage.registerForm" :key="item.id">
             <span>{{ item.value }}:</span>
@@ -48,12 +49,15 @@
           </li>
           <p class="alemd" @click="changeDrawer">修改注册信息</p>
         </div>
+        <!-- 注册 -->
         <div v-if="initid==2" class="showbox">
           <p class="alemd" style="margin:0" @click="changeDrawer">添加提示语</p>
         </div>
+        <!-- 推荐 -->
         <div v-if="initid==3" class="showbox">
           <p class="alemd" style="margin:0" @click="changeDrawer">添加条款</p>
         </div>
+        <!-- 条款 -->
         <div v-if="initid==4" class="showbox">
           <span class="addbtn" style="margin:0" @click="changeDrawer">+</span>
           <div class="table">
@@ -88,6 +92,7 @@
             </el-table>
           </div>
         </div>
+        <!-- 门店-->
       </div>
       <Drawer
         v-if="initid==0"
@@ -143,6 +148,7 @@
           </el-form>
         </div>
       </Drawer>
+      <!-- 会员 -->
       <Drawer
         v-else-if="initid==1"
         :title="title"
@@ -169,6 +175,8 @@
           >必填</el-radio>
         </li>
       </Drawer>
+      <!-- 注册 -->
+
       <Drawer
         v-else-if="initid==2"
         :title="title"
@@ -179,8 +187,10 @@
         @changedisplay="changedisplay"
         @changemask="changemask"
       >
-        <el-input v-model="input" placeholder="请输入内容" />
+        <el-input v-model="input" placeholder="请输入内容" style="marginBottom:30px" />
+        <span style="color:#ccc">用户保存推荐码图片时，在二维码图片下方显示的提示语，最多输入22个汉字</span>
       </Drawer>
+      <!-- 推荐 -->
       <Drawer
         v-else-if="initid==3"
         :title="title"
@@ -193,6 +203,7 @@
       >
         <el-input v-model="input" placeholder="请输入内容" />
       </Drawer>
+      <!-- 条款 -->
       <Drawer
         v-else-if="initid==4"
         :title="title"
@@ -226,10 +237,18 @@
               placeholder
               autocomplete="off"
             />
-            <el-cascader v-else clearable />
+            <el-select v-else v-model="value" placeholder="请选择">
+              <el-option
+                v-for="item in ocityList"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              />
+            </el-select>
           </el-form-item>
         </el-form>
       </Drawer>
+      <!-- 门店-->
     </div>
   </div>
 </template>
@@ -300,17 +319,28 @@ export default {
       imageUrl: '',
       registerList: [],
       input: '',
-      textarea: ''
+      textarea: '',
+      ocityList: []
     }
   },
   computed: {
-    ...mapState('nested', ['cardType', 'registerMessage', 'shopList'])
+    ...mapState('nested', [
+      'cardType',
+      'registerMessage',
+      'shopList',
+      'cityList'
+    ])
   },
   mounted() {
     this.getCardType()
   },
   methods: {
-    ...mapActions('nested', ['getCardType', 'getRegister', 'getShopList']),
+    ...mapActions('nested', [
+      'getCardType',
+      'getRegister',
+      'getShopList',
+      'getCityList'
+    ]),
     handleAvatarSuccess(res, file) {
       this.imageUrl = URL.createObjectURL(file.raw)
     },
@@ -348,6 +378,7 @@ export default {
           break
         case 4:
           this.getShopList()
+          this.getCityList()
           this.title = '新增商场门店'
           break
         default:
@@ -379,8 +410,13 @@ export default {
     registerMessage() {
       this.registerList = this.registerMessage.registerForm
     },
-    registerList() {
-      console.log(this.registerList)
+    cityList() {
+      this.ocityList = this.cityList
+      this.ocityList.map(item => {
+        item.lable = item.id
+        item.value = item.name
+      })
+      console.log(this.ocityList, '1114444')
     }
   }
 }

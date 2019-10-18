@@ -15,7 +15,14 @@ export function getRegister() {
 }
 export function getShopList() {
   return request({
-    url: '/membership-setting/mall-store-list', // 获取注册信息
+    url: '/membership-setting/mall-store-list', // 获取商城门店
+    method: 'post',
+    baseURL: '/api'
+  })
+}
+export function getCityList() {
+  return request({
+    url: '/membership-setting/city-tree', // 获取商城门店
     method: 'post',
     baseURL: '/api'
   })
