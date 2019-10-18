@@ -6,48 +6,7 @@
       </div>
       <div class="basic-edit card-group margin-24-top">
         <h4 class="margin-24-btm">活动信息</h4>
-        <div class="margin-24-btm">
-          <h4>使用范围</h4>
-          <p>
-            <el-radio v-model="radio1" label="1">商场</el-radio>
-            <el-radio v-model="radio1" label="2">店铺</el-radio>
-          </p>
-        </div>
-        <div class="overflow margin-24-btm">
-          <p class="margin-10-right float-left" style="width: 180px;">是否可与一口价叠加</p>
-          <div class="select">
-              <el-radio v-model="radio4" label="1">是</el-radio>
-              <el-radio v-model="radio4" label="0">否</el-radio>
-          </div>
-        </div>
-        <div class="overflow margin-24-btm">
-          <p class="margin-10-right float-left" style="width: 180px;">是否可与店铺活动叠加</p>
-          <div class="select">
-              <el-radio v-model="radio5" label="1">是</el-radio>
-              <el-radio v-model="radio5" label="0">否</el-radio>
-          </div>
-        </div>
-        <div class="overflow margin-24-btm">
-          <p class="margin-10-right float-left" style="width: 180px;">是否可与店铺券叠加</p>
-          <div class="select">
-              <el-radio v-model="radio6" label="1">是</el-radio>
-              <el-radio v-model="radio6" label="0">否</el-radio>
-          </div>
-        </div>
-        <div class="overflow margin-24-btm">
-          <p class="margin-10-right float-left" style="width: 180px;">是否可与商场券叠加</p>
-          <div class="select">
-              <el-radio v-model="radio7" label="1">是</el-radio>
-              <el-radio v-model="radio7" label="0">否</el-radio>
-          </div>
-        </div>
-        <div class="margin-24-btm">
-          <h4>减免类型</h4>
-          <p>
-            <el-radio v-model="radio2" label="1">是</el-radio>
-            <el-radio v-model="radio2" label="2">否</el-radio>
-          </p>
-        </div>
+  
         <div>
           <el-form
             ref="ruleForm"
@@ -76,30 +35,6 @@
                 />
               </div>
             </div>
-
-            
-            <div class="overflow margin-24-btm">
-              <p class="margin-10-right float-left" style="width: 80px; line-height: 32px;">标签文字</p>
-              <div class="float-left">
-                <input v-model="biaoqian" placeholder="请输入" type="text" class="ant-input" value style="width: 300px;">
-                <p class="color-a0 size-14">显示在商品详情页价格旁边，例如：限时减、限时折扣</p>
-              </div>
-            </div>
-            <div class="textares">
-              <span
-                class="margin-10-right float-left"
-                style="width: 80px; display: inline-block;"
-              >活动说明</span>
-              <div class="float-left">
-                <textarea
-                  v-model="text"
-                  class="ant-input"
-                  style="width: 300px; height: 94px; min-height: 94px; max-height: 9.0072e+15px;"
-                />
-                <p class="color-a0 size-14">活动说明会展示在活动页</p>
-              </div>
-            </div>
-
           </el-form>
         </div>
      <div>
@@ -131,25 +66,6 @@
           </div>
         </div>
         <h4 class="margin-24-btm">条件设定</h4>
-        <div class="xuanzhe">
-              <h4>限购设置</h4>
-              <el-radio-group v-model="radio3">
-                <div class="margin-16-btm">
-                  <el-radio v-model="radio3" :label="1">满减</el-radio>
-                  <el-radio v-model="radio3" :label="2">
-                    <span>
-                      循环满减/赠
-                    </span>
-                  </el-radio>
-                  <el-radio v-model="radio3" :label="3">
-                    <span>
-                      阶梯满减/赠
-                    </span>
-                  </el-radio>
-                </div>
-              </el-radio-group>
-            </div>
-        </div>
         <div class="overflow margin-24-btm">
               <p class="margin-10-right float-left" style="width: 80px; line-height: 32px;">
                 <span class="color-FF7887">*</span>活动名称
@@ -159,25 +75,8 @@
                       满
                       <input v-model="discount_threshold" placeholder="请输入" type="text" class="ant-input" value style="width: 150px;">元
                     </span>
-                
               </div>
-            </div>
-            <div class="overflow margin-24-btm">
-              <p class="margin-10-right float-left" style="width: 80px; line-height: 32px;">
-                <span class="color-FF7887">*</span>活动名称
-              </p>
-              <div class="float-left">
-                   <span>
-                      订单金额优惠 减
-                      <input v-model="discount_value" placeholder="请输入" type="text" class="ant-input" value style="width: 150px;">
-                      元, 最多减
-                       <input v-model="discount_value_max" placeholder="请输入" type="text" class="ant-input" value style="width: 150px;">
-                       元
-                    </span>
-                
-              </div>
-            </div>
-      </div>
+        </div>
     </div>
     <div class="bottom-footbar">
       <el-button size="small" @click="addlist">添加商品</el-button>

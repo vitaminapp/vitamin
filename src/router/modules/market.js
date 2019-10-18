@@ -84,6 +84,13 @@ const marketRouter = {
             meta: { title: '限购活动', icon: 'list' }
         },
         {
+            path: 'restrictionoperate',
+            component: () =>
+                import ('@/pages/marketing/restriction/operate'),
+            name: '限购活动',
+            hidden: true
+        },
+        {
             path: 'promotion',
             component: () =>
                 import ('@/pages/marketing/promotion/index'),

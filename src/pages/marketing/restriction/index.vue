@@ -39,6 +39,7 @@
         </div>
       </div>
     </div>
+    
   </div>
 </template>
 
@@ -120,7 +121,7 @@ export default {
 
     btnAdd() {
       this.$router.push({
-        path: '/marketing/priceoperate'
+        path: '/marketing/restrictionoperate'
         // query:{
         //   id:this.id ,
         // }
