@@ -3,43 +3,40 @@
     <el-form ref="formInline" :inline="true" :model="formInline" class="demo-form">
       <el-form-item v-for="(filter, index) in filterParams" :key="index" :label="filter.label" class="item">
         <component :is="filter.type" v-model="formInline[filter.key]" :placeholder="'请填写'+filter.label" class="content">
-          <el-option  v-for="(value,ind) in filter.list" :key="ind" v-show="value.name"  :label="value.name" :value="value.id"/>          
-          
-           <!-- <el-option  v-for="(value,ind) in filter.list" :key="ind" v-show="value.name"  :label="value.name" :value="value.id"/>           -->
-          
-          <!-- <el-option-group
-            v-for="(group,ind) in filter.list"
-            :placeholder="'请填写'+filter.label"
-            :key="ind"
-            :value="group.id"
-            :label="group.name"
-            v-show="group.children"
-            >
+         
+          <div v-for="(value,ind) in filter.list" :key="ind">
+            <!-- 判断到底是一级还是二级 -->
+            <el-option v-show="value.name&&!value.children"  :label="value.name" :value="value.id"/> 
             
-            <el-option
-              v-for="(item,num) in group.children"
-              :key="num"
-              :label="item.name"
-              :value="item.value">
-            </el-option>
-          </el-option-group> -->
+            <el-option-group
+              :placeholder="'请填写'+value.label"
+              :value="value.id"
+              :label="value.name"
+              v-show="value.children&&!value.title"
+              >
+              <el-option
+                v-for="(item,num) in value.children"
+                :key="num"
+                :label="item.name"
+                :value="item.id">
+              </el-option>
+            </el-option-group>
 
+            <el-option-group
+              :placeholder="'请填写'+value.label"
+              :value="value.value"
+              :label="value.title"
+              v-show="value.title"
+              >
+              <el-option
+                v-for="(item,num) in value.children"
+                :key="num"
+                :label="item.title"
+                :value="item.value">
+              </el-option>
+            </el-option-group>
 
-
-
-          <!-- <el-option-group
-            v-for="(group,ind) in filter.list"
-            :placeholder="'请填写'+filter.label"
-            :key="ind"
-            :value="group.id"
-            :label="group.name">
-            <el-option
-              v-for="(item,index) in group.children"
-              :key="index"
-              :label="item.name"
-              :value="item.value">
-            </el-option>
-          </el-option-group> -->
+          </div>
 
         </component>
       </el-form-item>
@@ -67,18 +64,6 @@ export default {
       type: Function,
       default: function() {}
     }
-    // formInline: {
-    //   type: Function,
-    //   default: function() {}
-    // },
-    // filterParams: {
-    //   type: Function,
-    //   default: function() {}
-    // },
-    // submit: {
-    //   type: Function,
-    //   default: function() {}
-    // }
   },
   data() {
     return {

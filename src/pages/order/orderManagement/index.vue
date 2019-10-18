@@ -10,12 +10,19 @@
           </span>
           <span>
             <i class="el-icon-document"></i>
-            查看已生成报表</span>
+            查看已生成报表
+          </span>
         </div>
       </header>
-      
+
       <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
-        <el-tab-pane v-for="(list,index) in tabs" :key="index" :label="list.label" :name="list.name" class="tabs-item">
+        <el-tab-pane
+          v-for="(list,index) in tabs"
+          :key="index"
+          :label="list.label"
+          :name="list.name"
+          class="tabs-item"
+        >
           <keep-alive>
             <From :form-inline="formInline" :filter-params="filterParams" :submit="submit" />
           </keep-alive>
@@ -24,17 +31,16 @@
         </el-tab-pane>
       </el-tabs>
     </div>
-   
   </div>
 </template>
 <script>
 import { floorList, categoryList, storeList } from "@/api/shop";
-import { orderSearch,orderList } from "@/api/order";
+import { orderSearch, orderList } from "@/api/order";
 export default {
   data() {
     return {
       activeName: "first",
-      
+
       tabs: [
         { label: "全部", name: "first" },
         { label: "待付款", name: "second" },
@@ -42,7 +48,7 @@ export default {
         { label: "待收货", name: "fourth" },
         { label: "已完成", name: "fifth" }
       ],
-      status:1,
+      status: 1,
       page: 1,
       formInline: {},
       filterParams: [
@@ -78,64 +84,66 @@ export default {
         { title: "订单状态", key: "status_str" },
         { title: "实付金额", key: "pay_amount" }
       ],
-      total: 0
+      total: 0,
+      //订单类型接口没有需要手动写入
+      order_type:[
+        {
+          name:"全部",
+          id:""
+        },
+        {
+          name:"线上pos",
+          id:1
+        },
+        {
+          name:"电商订单",
+          id:0
+        },
+        {
+          name:"电子卡卷",
+          id:2
+        },
+      ]
     };
   },
   watch: {
     page() {
       this.submit(this.formInline);
     },
-    status(){
-      this.submit();
-      // console.log(this.status)
+    status() {
+      this.submit({ status: this.status });
     }
   },
   mounted() {
-    this.getListDate(orderSearch, "楼层");
-    this.getListDate(orderSearch, "店铺");
-    this.getListDate(orderSearch, "品牌");
+    this.getListDate(orderSearch);
     this.submit(this.formInline);
   },
   methods: {
     // 用于tab切换
     handleClick(tab, event) {
       this.activeName = tab.name;
-      this.status=tab.index;
-      console.log(this.status)
+      this.status = tab.index;
+    },
+    find(arr, name, data) {
+      const index = arr.findIndex(item => item.label === name);
+      this.filterParams[index].list = data;
     },
     // 用于修改下拉框里面的一些数据
-    getListDate(fun, name) {
+    getListDate(fun) {
       fun().then(({ data }) => {
-        const arr = this.filterParams.map(item => {
-          if (item.label === "楼层") {
-            item.list=data.floor;
-            return {
-              ...item
-            };
-          }else if(item.label==="店铺"){
-            item.list=data.store;
-             return {
-              ...item
-            };
-          }else if(item.label==="品牌"){
-            item.list=data.brand;
-            return {
-              ...item
-            }
-          }
-          return item;
-        });
-        this.filterParams = arr;
+        this.find(this.filterParams, "订单类型", this.order_type);
+        this.find(this.filterParams, "楼层", data.floor);
+        this.find(this.filterParams, "店铺", data.store);
+        this.find(this.filterParams, "品牌", data.brand);
       });
     },
     // 点击搜索按钮时接受form表单的函数
     submit(val) {
-      this.formInline = val
-      orderList({ page: this.page,...val ,status:this.status}).then(res => {
-        console.log(res)
-        // this.total = res.data.page.totalNum;
-        // this.tableData = res.data.list;
-        // console.log(res.data.list)
+      this.formInline = val;
+      orderList({ page: this.page, ...val}).then(res => {
+        console.log(res.data.page.totalNum)
+        this.total = res.data.page.totalNum;
+        this.tableData = res.data.list;
       });
     },
     // 修改分页器当前页
@@ -157,24 +165,24 @@ export default {
       padding: 24px;
       background: #fff;
     }
-    .xlsx{
+    .xlsx {
       margin-top: 24px;
-      color: rgba(0,0,0,.65);
+      color: rgba(0, 0, 0, 0.65);
       font-size: 14px;
     }
     .el-tabs__header {
       margin-left: 24px;
     }
-    .el-tabs__nav{
+    .el-tabs__nav {
       border: 0 !important;
     }
     .el-tabs__content {
       height: 100%;
     }
-    .el-tabs__item{
+    .el-tabs__item {
       border-left: 0;
     }
-    .is-active{
+    .is-active {
       color: #3ec6b6 !important;
       border-bottom: 2px solid #3ec6b6 !important;
     }

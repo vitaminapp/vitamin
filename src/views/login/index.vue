@@ -45,6 +45,19 @@
         </el-form-item>
       </el-tooltip>
 
+      <div>
+        <el-input
+          ref="username"
+          v-model="loginForm.username"
+          placeholder="验证码"
+          name="username"
+          type="text"
+          autocomplete="on"
+        />
+        <br/>
+        <span>点击获取短信验证码</span>
+      </div>
+
       <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>
 
       <div style="position:relative">
@@ -61,6 +74,9 @@
           Or connect with
         </el-button>
       </div>
+
+     
+      
     </el-form>
 
     <el-dialog title="Or connect with" :visible.sync="showDialog">
@@ -70,6 +86,10 @@
       <br>
       <social-sign />
     </el-dialog>
+
+    
+
+
   </div>
 </template>
 

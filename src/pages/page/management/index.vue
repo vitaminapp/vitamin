@@ -18,7 +18,7 @@ export default {
         { title: "状态", key: "address" },
         { title: "发布时间", key: "publish_time" }
       ],
-      total: 0
+      total: 0,
     };
   },
   mounted() {

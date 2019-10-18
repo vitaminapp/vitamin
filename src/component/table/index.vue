@@ -44,22 +44,6 @@ export default {
       type: Function,
       default: function() {}
     }
-    // tableData: {
-    //   type: Function,
-    //   default: function() {}
-    // },
-    // columns: {
-    //   type: Function,
-    //   default: function() {}
-    // },
-    // total: {
-    //   type: Function,
-    //   default: function() {}
-    // },
-    // setPage: {
-    //   type: Function,
-    //   default: function() {}
-    // }
   },
   methods: {
     handleCurrentChange(val) {
