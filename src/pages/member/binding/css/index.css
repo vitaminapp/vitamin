@@ -1,0 +1,44 @@
+* {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  box-sizing: border-box;
+}
+
+.bind_warper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #f9f9f9;
+  padding: 0 24px;
+  font-size: 14px;
+}
+
+.bind_warper .navbar {
+  width: 100%;
+}
+
+.bind_warper .content {
+  flex: 1;
+  padding: 24px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.bind_warper .content .title {
+  width: 100%;
+  margin-top: 34px;
+  margin-bottom: 22px;
+}
+
+.bind_warper .content .hint {
+  margin: 20px 0;
+  color: #a0a0a0;
+}
+
+.bind_warper .content .addtel {
+  margin: 16px 0;
+  color: #3ec6b6;
+}

@@ -45,7 +45,7 @@
           </li>
           <li>
             选择默认地区:
-            <span v-for="(item,index) in registerMessage.defaultArea" :key="index">{{ item }}</span>
+            <span v-for="(item,index) in registerMessage.defaultArea" :key="index">{{ item.name }}</span>
           </li>
           <p class="alemd" @click="changeDrawer">修改注册信息</p>
         </div>
@@ -126,13 +126,10 @@
                 { required: true, message: '输入内容不能为空'},
               ]"
             >
-              <el-input v-model.number="cardFrom.name" type="age" autocomplete="off" />
+              <el-input v-model.number="cardFrom.grade" type="age" autocomplete="off" />
             </el-form-item>
             <el-form-item
               label="卡片图案"
-              :rules="[
-                { required: true, message: '输入内容不能为空'},
-              ]"
             >
               <el-upload
                 class="avatar-uploader"
@@ -395,7 +392,6 @@ export default {
       return ' text-align: center;font-size:14;font-weight: normal;background:#fafafa;color:#000'
     },
     changeDrawer() {
-      console.log('kkkk')
       this.display = true
       this.mask = true
     },
@@ -404,6 +400,12 @@ export default {
     },
     changemask(boolean) {
       this.mask = boolean
+    },
+    handleEdit(index, row) {
+      this.cardFrom.name = row.level
+      this.cardFrom.grade = row.title
+      this.imageUrl = row.img
+      this.changeDrawer()
     }
   },
   watch: {
@@ -416,7 +418,6 @@ export default {
         item.lable = item.id
         item.value = item.name
       })
-      console.log(this.ocityList, '1114444')
     }
   }
 }
@@ -425,8 +426,14 @@ export default {
 @import url("./css/index.css");
 </style>
 <style>
-.avatar-uploader .el-upload {
+.avatar-uploader{
+  width: 264px;
+  height: 164px;
   border: 1px dashed #d9d9d9;
+  padding: 8px;
+  box-sizing: border-box;
+}
+.avatar-uploader .el-upload {
   border-radius: 6px;
   cursor: pointer;
   position: relative;
@@ -444,8 +451,8 @@ export default {
   text-align: center;
 }
 .avatar {
-  width: 178px;
-  height: 178px;
+  width: 248px;
+  height: 148px;
   display: block;
 }
 </style>
