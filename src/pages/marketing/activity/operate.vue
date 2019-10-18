@@ -262,6 +262,7 @@ export default {
   methods: {
     ...mapActions('marketing', ['partPower', 'store', 'storeList', 'getpartPower', 'getsave']),
 
+
     qx() {
       this.$router.push({
         path: '/marketing/price'
